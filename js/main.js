@@ -4,12 +4,63 @@ $('#search').keypress(function (e){
   if (e.which == 13) { //Enter key pressed
 
     //ler o valor da caixa de input
-    let artist = $('#search').val();
-    console.log(artist);
+    let search = $('#search').val();
 
-    //construir o URL com o valor da caixa de input
-    let url = 'http://musicbrainz.org/ws/2/artist/?query=artist:' + artist + '&fmt=json';
-    url = encodeURI(url);
+    //ler o valor do filtro
+    let option = $('#filtro').val();
+
+//verificar o valor do filtro e cria o url dependendo da opção
+
+    if( option == 'artist'){
+
+    var url = 'http://musicbrainz.org/ws/2/artist/?query=artist:' + search + '&fmt=json';
+    var url = encodeURI(url);
+
+    console.log(url);
+
+    //fazer o pedido HTTP GET ao servico MusicBrainz
+    $.get(url, function(response, status) {
+      if (status == 'success') {
+        //implementar tabela com o header "nome","score","type"
+
+        //criar table
+        let table = $('<table></table').attr('id', 'tabela');
+        $('body').append(table);
+
+        //o thead
+        let thead = $('<thead></thead>');
+        table.append(thead);
+
+        //os tr
+        let tr = $('<tr></tr>');
+        thead.append(tr);
+
+        //os th
+        let labels = ['nome', 'score', 'type'];
+        $.each(labels, function(indice, label) {
+          let th = $('<th></th>').text(label);
+          tr.append(th);
+        });
+
+        let tbody = $('<tbody></tbody>');
+        table.append(tbody);
+        //interar sobre o array artistas
+        for (let artist of response.artists) {
+          let tr = $('<tr></tr>');
+          tr.append($('<td></td>').text(artist.name));
+          tr.append($('<td></td>').text(artist.score));
+          tr.append($('<td></td>').text(artist.type));
+          tbody.append(tr);
+        }
+
+      }
+    });
+
+
+  } else if (option == 'music'){
+
+    var url = 'http://musicbrainz.org/ws/2/release/27f55c43-679d-4f19-86cf-d4f66d2c8ee6?inc=recordings+media&fmt=json';
+    var url = encodeURI(url);
 
     //fazer o pedido HTTP GET ao servico MusicBrainz
     $.get(url, function(response, status) {
@@ -58,6 +109,63 @@ $('#search').keypress(function (e){
 
       }
     });
+
+
+  } else {
+
+    var url = 'http://musicbrainz.org/ws/2/release/?query=release:' + search + '&fmt=json';
+    var url = encodeURI(url);
+
+    console.log(url);
+
+    //fazer o pedido HTTP GET ao servico MusicBrainz
+    $.get(url, function(response, status) {
+      if (status == 'success') {
+        //implementar tabela com o header "nome","score","type"
+
+        //criar table
+        let table = $('<table></table').attr('id', 'tabela');
+        $('body').append(table);
+
+        //o thead
+        let thead = $('<thead></thead>');
+        table.append(thead);
+
+        //os tr
+        let tr = $('<tr></tr>');
+        thead.append(tr);
+
+        //os th
+        let labels = ['band/Artist','title', 'score', 'status'];
+        $.each(labels, function(indice, label) {
+          let th = $('<th></th>').text(label);
+          tr.append(th);
+        });
+
+        let tbody = $('<tbody></tbody>');
+        table.append(tbody);
+        //interar sobre o array albums
+        for (let release of response.releases) {
+          let tr = $('<tr></tr>');
+          tr.append($('<td></td>').text(release.artist-credit.artist.name));
+          tr.append($('<td></td>').text(release.title));
+          tr.append($('<td></td>').text(release.score));
+          tr.append($('<td></td>').text(release.status));
+          tbody.append(tr);
+        }
+
+
+      }
+
+    });
+
+  }
+
+
+
+    //fazer o pedido HTTP GET ao servico MusicBrain
+
+
   };
 });
 });
