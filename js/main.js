@@ -1,13 +1,13 @@
 $(document).ready(function() {
 
-  $('#search').keypress(function(e) {
+  $('#search-box').keypress(function(e) {
     if (e.which == 13) { //Enter key pressed
 
       //ler o valor da caixa de input
-      let search = $('#search').val();
+      let search = $('#search-box').val();
 
       //ler o valor do filtro
-      let option = $('#filtro').val();
+      let option = $('#search-menu').val();
 
       //verificar o valor do filtro e cria o url dependendo da opção
 

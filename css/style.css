@@ -4,8 +4,8 @@
 /* logo */
 
 .logo{
-	
-	display: flex; 
+
+	display: flex;
 	justify-content: center;
 	background-color:#34493e;
 	margin: 0px 5 5 8px;
@@ -17,23 +17,23 @@
 /*search bar*/
 
 .search-div{
-	
+
 	display: flex;
 	justify-content: center;
 	background-color:#34493e;
 	font:1.2em 'Montserrat Alternates';
 	border: 1px;
 	border-color: black;
-	
-	
+
+
 }
 
 /*search-box*/
 
 
 
-.search-box{
-	
+#search-box{
+
 	width: 300px;
 	height: 40px;
 	text-align: left;
@@ -44,11 +44,11 @@
 	border-radius: 8px;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#eeeeee));
 	-webkit-box-shadow: 0 4px 0 #ddd, 0 6px 8px rgba(0,0,0,.5);
-	
+
 }
 
-.search-menu{
-	
+#search-menu{
+
 	width: 100px;
 	height: 40px;
 	margin: 0px 0 0 8px;
@@ -62,5 +62,5 @@
 	border-radius: 8px;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#eeeeee));
 	-webkit-box-shadow: 0 4px 0 #ddd, 0 6px 8px rgba(0,0,0,.5);
-	
+
 }
