@@ -36,7 +36,7 @@ $(document).ready(function() {
             thead.append(tr);
 
             //os th
-            let labels = ['nome', 'score', 'type'];
+            let labels = ['Artist/Group', 'type', 'from', 'score' ];
             $.each(labels, function(indice, label) {
               let th = $('<th></th>').text(label);
               tr.append(th);
@@ -48,8 +48,9 @@ $(document).ready(function() {
             for (let artist of response.artists) {
               let tr = $('<tr></tr>');
               tr.append($('<td></td>').text(artist.name));
-              tr.append($('<td></td>').text(artist.score));
               tr.append($('<td></td>').text(artist.type));
+              tr.append($('<td></td>').text(artist.area.name));
+              tr.append($('<td></td>').text(artist.score));
               tbody.append(tr);
             }
 
@@ -59,7 +60,7 @@ $(document).ready(function() {
 
       } else if (option == 'music') {
 
-        var url = 'http://musicbrainz.org/ws/2/release/?query=recordings:' + search + '+media&fmt=json';
+        var url = 'http://musicbrainz.org/ws/2/recording/?query=recording:' + search + '&fmt=json';
         var url = encodeURI(url);
 
         console.log(url);
@@ -82,7 +83,7 @@ $(document).ready(function() {
             thead.append(tr);
 
             //os th
-            let labels = ['titulo', 'score', 'status'];
+            let labels = ['Song', 'score', 'status','Artist/band'];
             $.each(labels, function(indice, label) {
               let th = $('<th></th>').text(label);
               tr.append(th);
@@ -91,24 +92,16 @@ $(document).ready(function() {
             let tbody = $('<tbody></tbody>');
             table.append(tbody);
             //interar sobre o array artistas
-            for (let music of response.releases) {
+            for (let music of response.recordings) {
               let tr = $('<tr></tr>');
               tr.append($('<td></td>').text(music.title));
               tr.append($('<td></td>').text(music.score));
               tr.append($('<td></td>').text(music.status));
+              for(let i = 0; i < music['artist-credit'].lenght;i++){
+              tr.append($('<td></td>').text(music['artist-credit'][i].artist.name));
+              }
               tbody.append(tr);
             }
-
-            //ativar filtro
-            $('#filtro').on('keyup', function() { //keyup é quando largamos o clique da caixa de input
-              var valor = $(this).val().toLowerCase(); //this = #filtro
-              $('#tabela tbody tr').filter(
-                function(indice, linha) {
-                  $(linha).toggle($(linha).text().toLowerCase().indexOf(valor) > -1); //mostra ou esconde os filtros
-                }
-              );
-            });
-
           }
         });
 
@@ -138,7 +131,7 @@ $(document).ready(function() {
             thead.append(tr);
 
             //os th
-            let labels = ['band/Artist', 'title', 'score', 'status'];
+            let labels = ['band/Artist', 'Album', 'Tracks', 'Score'];
             $.each(labels, function(indice, label) {
               let th = $('<th></th>').text(label);
               tr.append(th);
@@ -149,10 +142,10 @@ $(document).ready(function() {
             //interar sobre o array albums
             for (let release of response.releases) {
               let tr = $('<tr></tr>');
-              tr.append($('<td></td>').text(release.artist - credit.artist.name));
+              tr.append($('<td></td>').text(release['artist-credit'][0].artist.name));
               tr.append($('<td></td>').text(release.title));
+              tr.append($('<td></td>').text(release.media[0]['track-count']));
               tr.append($('<td></td>').text(release.score));
-              tr.append($('<td></td>').text(release.status));
               tbody.append(tr);
             }
 
