@@ -36,7 +36,7 @@ $(document).ready(function() {
             thead.append(tr);
 
             //os th
-            let labels = ['Artist/Group', 'type', 'from', 'score' ];
+            let labels = ['Artist/Group', 'type','score' ];
             $.each(labels, function(indice, label) {
               let th = $('<th></th>').text(label);
               tr.append(th);
@@ -49,7 +49,6 @@ $(document).ready(function() {
               let tr = $('<tr></tr>');
               tr.append($('<td></td>').text(artist.name));
               tr.append($('<td></td>').text(artist.type));
-              tr.append($('<td></td>').text(artist.area.name));
               tr.append($('<td></td>').text(artist.score));
               tbody.append(tr);
             }
