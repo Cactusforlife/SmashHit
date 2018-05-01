@@ -96,10 +96,8 @@ $(document).ready(function() {
               let tr = $('<tr></tr>');
               tr.append($('<td></td>').text(music.title));
               tr.append($('<td></td>').text(music.score));
-              tr.append($('<td></td>').text(music.status));
-              for(let i = 0; i < music['artist-credit'].lenght;i++){
-              tr.append($('<td></td>').text(music['artist-credit'][i].artist.name));
-              }
+              tr.append($('<td></td>').text(music.status))
+              tr.append($('<td></td>').text(music['artist-credit'][0].artist.name));
               tbody.append(tr);
             }
           }
