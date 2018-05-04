@@ -36,9 +36,16 @@ $(document).ready(function() {
               div_resultados.append(div_artista);
 
               //div da imagem do artista
-              let div_imagem = $('<div></div>').attr('class', 'imagem');
 
-              div_artista.append(div_imagem);
+              let div_caixa_img = $('<div></div>').attr('class', 'caixa_img');
+
+              div_artista.append(div_caixa_img);
+
+              let div_art_img = $('<img></img>').attr('src').attr('class','div_art_img');
+
+              div_caixa_img.append(div_art_img);
+
+
 
 
               //div com o nome do artista
@@ -114,9 +121,14 @@ $(document).ready(function() {
               div_resultados.append(div_music);
 
               //div da imagem do artista
-              let div_imagem = $('<div></div>').attr('class', 'imagem');
 
-              div_music.append(div_imagem);
+              let div_caixa_img = $('<div></div>').attr('class', 'caixa_img');
+
+              div_artista.append(div_caixa_img);
+
+              let div_art_img = $('<img></img>').attr('src').attr('class','div_art_img');
+
+              div_caixa_img.append(div_art_img);
 
 
               //div com o nome da musica
@@ -203,9 +215,13 @@ $(document).ready(function() {
 
               //div da imagem do artista
 
-              let div_imagem = $('<div></div>').attr('class', 'imagem');
+              let div_caixa_img = $('<div></div>').attr('class', 'caixa_img');
 
-              div_release.append(div_imagem);
+              div_artista.append(div_caixa_img);
+
+              let div_art_img = $('<img></img>').attr('src').attr('class','div_art_img');
+
+              div_caixa_img.append(div_art_img);
 
               //div com o nome da banda/artista do album
 
