@@ -53,6 +53,13 @@ $(document).ready(function() {
               tbody.append(tr);
             }
 
+
+            $('#tabela').click(function(){
+
+
+
+            });
+
           }
         });
 
@@ -70,16 +77,8 @@ $(document).ready(function() {
             //implementar tabela com o header "nome","score","type"
 
             //criar table
-            let table = $('<table></table').attr('id', 'tabela');
-            $('body').append(table);
-
-            //o thead
-            let thead = $('<thead></thead>');
-            table.append(thead);
-
-            //os tr
-            let tr = $('<tr></tr>');
-            thead.append(tr);
+            let div_artista = $('<div></div>').attr('class', 'artista');
+            $('body').append(div_artista);
 
             //os th
             let labels = ['Song', 'score', 'status','Artist/band'];
@@ -96,11 +95,14 @@ $(document).ready(function() {
               tr.append($('<td></td>').text(music.title));
               tr.append($('<td></td>').text(music.score));
               tr.append($('<td></td>').text(music.status));
-              for(let i = 0; i < music['artist-credit'].lenght;i++){
-              tr.append($('<td></td>').text(music['artist-credit'][i].artist.name));
-              }
+              tr.append($('<td></td>').text(music['artist-credit'][0].artist.name));
               tbody.append(tr);
             }
+              $('#tabela').click(function(){
+
+
+
+              });
           }
         });
 
@@ -147,6 +149,12 @@ $(document).ready(function() {
               tr.append($('<td></td>').text(release.score));
               tbody.append(tr);
             }
+
+            $('#tabela').click(function(){
+
+
+
+            });
 
 
           }
