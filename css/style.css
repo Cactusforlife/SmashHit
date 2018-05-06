@@ -1,17 +1,24 @@
                                 /* GERAL */
-* {
-	background-color:#34493e;
+{
+	~background-color:#34493e;
+	background-image: url("https://images.fabric.com/images/693/693/0354267.jpg");
 }
 
 /* logo */
 
 .logo{
 
-	display: flex;
-	justify-content: center;
+	margin-left: 25%;
+	margin-right: 25%;
 	margin: 0px 5 5 8px;
-	padding-top: 100px;
+	padding-top: 20px;
 	padding-bottom: 10px;
+}
+
+
+img{
+	margin-left: 25%;
+	margin-right: 25%;
 }
 
 
@@ -19,9 +26,8 @@
 
 .search-div{
 
-	display: flex;
-	justify-content: center;
-	background-color:#34493e;
+	margin-left: 25%;
+	margin-right: 25%;
 	font:1.2em 'Montserrat Alternates';
 	border: 1px;
 	border-color: black;
@@ -33,6 +39,7 @@
 
 .search-box{
 
+	margin-left: 25%;
 	width: 230px;
 	height: 20px;
 	text-align: center;
@@ -62,5 +69,35 @@
 }
 
 
+.resultados{
 
-https://musicbrainz.org/artist/859d0860-d480-4efd-970c-c05d5f1776b8
+	display: grid;
+	grid-template-columns: auto auto auto;
+	margin-left: 25%;
+	margin-right: 25%;
+	width: 625.5px;
+
+}
+
+
+.artista{
+
+	color: orange;
+	width: 208.5px;
+	font-size: 14px;
+	text-align: justify;
+	font-family: 'Open Sans', Arial, sans-serif;
+
+}
+
+.caixa_img{
+
+
+}
+
+
+.art_img{
+
+	width: 50%;
+	height: 50%;
+}
