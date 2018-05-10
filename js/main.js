@@ -38,9 +38,9 @@ $(document).ready(function() {
 
               div_artista.append(div_caixa_img);
 
-              let div_art_img = $('<img></img>').attr('class', 'div_art_img');
+              let art_img = $('<img></img>').attr('class', 'art_img').attr('src',"https://static.cineclick.com.br/sites/adm/uploads/banco_imagens/31/602x0_1439644246.jpg");
 
-              div_caixa_img.append(div_art_img);
+              div_caixa_img.append(art_img);
 
 
 
