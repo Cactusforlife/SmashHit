@@ -1,25 +1,24 @@
                                 /* GERAL */
 {
-	~background-color:#34493e;
-	background-image: url("https://images.fabric.com/images/693/693/0354267.jpg");
+	background-color:#34493e;
 }
 
 /* logo */
 
 .logo{
-
+	
 	margin-left: 25%;
-	margin-right: 25%;
-	margin: 0px 5 5 8px;
-	padding-top: 20px;
-	padding-bottom: 10px;
+	margin-right: 25%;	
+	margin-bottom: 1%;
+	margin-top: 3%;
 }
 
-
-img{
-	margin-left: 25%;
-	margin-right: 25%;
+.imagemlogo{
+	
+	margin-left:25%;
+	
 }
+
 
 
 /*search bar*/
@@ -73,31 +72,40 @@ img{
 
 	display: grid;
 	grid-template-columns: auto auto auto;
+	margin-top: 2%;
 	margin-left: 25%;
 	margin-right: 25%;
-	width: 625.5px;
-
+	text-align: center;
 }
 
 
 .artista{
 
-	color: orange;
-	width: 208.5px;
+	color: black;
+	max-width: 208.5px;
+	max-height: 150px;
 	font-size: 14px;
-	text-align: justify;
+	text-align: center;
 	font-family: 'Open Sans', Arial, sans-serif;
 
 }
 
 .caixa_img{
-
+	
+	background: no-repeat center center;
+    max-height: 100px;
+    max-width: 208.5px;
 
 }
 
 
-.art_img{
 
-	width: 50%;
-	height: 50%;
+.art_img{
+	
+	max-height: 100px;
+	max-width: 208.5px;
+	border: 0px solid #ccc;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	
 }
