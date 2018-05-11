@@ -109,9 +109,9 @@ $(document).ready(function() {
 
             div_music.append(div_caixa_img);
 
-            let div_art_img = $('<img></img>').attr('class', 'div_art_img');
+            let art_img = $('<img></img>').attr('class', 'art_img').attr('src',"img/nosrc.png");
 
-            div_caixa_img.append(div_art_img);
+            div_caixa_img.append(art_img);
 
 
             //div com o nome da musica
@@ -188,9 +188,9 @@ $(document).ready(function() {
 
             div_release.append(div_caixa_img);
 
-            let div_art_img = $('<img></img>').attr('class', 'div_art_img');
+            let art_img = $('<img></img>').attr('class', 'art_img').attr('src',"img/nosrc.png");
 
-            div_caixa_img.append(div_art_img);
+            div_caixa_img.append(art_img);
 
             //div com o nome da banda/artista do album
 
