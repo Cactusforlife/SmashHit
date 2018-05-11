@@ -3,6 +3,8 @@ $(document).ready(function() {
   $('.search-box').keypress(function(e) {
     if (e.which == 13) { //Enter key pressed
 
+      $('.resultados').empty();
+
       //ler o valor da caixa de input
       let search = $('.search-box').val();
 
@@ -76,6 +78,17 @@ $(document).ready(function() {
               div_score.append(label_score);
 
             }
+
+              $('.artista').click(function(){
+
+                $('.resultados').hide();
+
+
+
+
+
+
+              });
 
           }
 
