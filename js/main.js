@@ -3,6 +3,10 @@ $(document).ready(function() {
   $('.search-box').keypress(function(e) {
     if (e.which == 13) { //Enter key pressed
 
+        $('.resultados').show();
+        
+		$('.resultados').empty();
+
       //ler o valor da caixa de input
       let search = $('.search-box').val();
 
@@ -10,7 +14,7 @@ $(document).ready(function() {
       let option = $('.search-menu').val();
 
       //verificar o valor do filtro e cria o url dependendo da opção
-
+	  
       if (option == 'artist') {
 
         var url = 'http://musicbrainz.org/ws/2/artist/?query=artist:' + search + '&fmt=json';
@@ -76,9 +80,33 @@ $(document).ready(function() {
               div_score.append(label_score);
 
             }
+		
+		//Dar hide do conteudo da pagina e amostrar novo conteudo
 
-          }
+                $('.artista').click(function(){
 
+                $('.resultados').hide();     
+
+                let div_caixa_artist = $('<div></div>').attr('class','artist_namebox');
+                $('.resultado-pesquisa').append(div_caixa_artist);
+                    
+                        let label_nome_v2 = $('<label></label>').attr('for', 'nome').html('xDDD'+artist.name);
+                        div_caixa_artist.append(label_nome_v2);
+
+                            let div_caixa_real_artist = $('<div></div>').attr('class','real_namebox');
+                            $('.resultado-pesquisa').append(div_caixa_real_artist);
+
+                                let div_resumo_artist = $('<div></div>').attr('class','caixa_wiki');
+                                $('.resultado-pesquisa').append(div_resumo_artist);
+
+                                    let div_caixa_album = $('<div></div>').attr('class','caixa_album');
+                                    $('.resultado-pesquisa').append(div_caixa_album);
+
+
+                    
+          });
+
+		  }
 
         });
 
