@@ -109,7 +109,7 @@ $(document).ready(function() {
 
               div_music.append(div_caixa_img);
 
-              let div_art_img = $('<img></img>').attr('class', 'div_art_img');
+              let div_art_img = $('<img></img>').attr('class', 'div_art_img').attr('src',"img/nosrc.png");
 
               div_caixa_img.append(div_art_img);
 
@@ -188,7 +188,7 @@ $(document).ready(function() {
 
               div_release.append(div_caixa_img);
 
-              let div_art_img = $('<img></img>').attr('class', 'div_art_img');
+              let div_art_img = $('<img></img>').attr('class', 'div_art_img').attr('src',"img/nosrc.png");
 
               div_caixa_img.append(div_art_img);
 

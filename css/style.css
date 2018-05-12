@@ -3,27 +3,27 @@
 /* logo */
 
 *{
-		background-color: grey;
+		background-image: url(../img/background2.png);
 }
 
 .logo{
-	
+
 	margin-left: 25%;
-	margin-right: 25%;	
+	margin-right: 25%;
 	margin-bottom: 1%;
 	margin-top: 3%;
 }
 
 .imagemlogo{
-	
+
 	margin-left:25%;
 }
 
 label{
-	
+
 	font-family:"Verdana",Sans-serif;
 	font-size: 12px;
-	
+
 }
 
 
@@ -97,7 +97,7 @@ label{
 }
 
 .caixa_img{
-	
+
 	background: no-repeat center center;
     max-height: 100px;
     max-width: 208.5px;
@@ -107,11 +107,11 @@ label{
 
 
 .art_img{
-	
+
 	max-height: 100px;
 	max-width: 208.5px;
 	border: 0px solid #ccc;
 	border-radius: 8px;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-	
+
 }
