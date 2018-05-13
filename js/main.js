@@ -134,12 +134,19 @@ $(document).ready(function() {
 
                 //div da imagem do artista
 
+              var cover_music = "http://coverartarchive.org/release/"+music.releases[0].id;
+              var cover_music = encodeURI(cover_music);
+
+              $.get(cover_music, function(response, status) {
+       
                 let div_caixa_img = $('<div></div>').attr('class', 'caixa_img');
                 div_music.append(div_caixa_img);
+                
+                let div_art_img = $('<img></img>').attr('class', 'div_art_img').attr('src',response.images[0].image);
+                div_caixa_img.append(div_art_img);
 
-              let div_art_img = $('<img></img>').attr('class', 'div_art_img').attr('src',"img/nosrc.png");
-              div_caixa_img.append(art_img);
-
+              });
+                
               //div com o nome da musica
 
               let div_song = $('<div></div>').attr('class', 'song');
@@ -202,8 +209,6 @@ $(document).ready(function() {
 
               //div da imagem do artista
 
-            
-
               var cover = "http://coverartarchive.org/release/"+album.id;
               var cover = encodeURI(cover);
 
@@ -235,8 +240,6 @@ $(document).ready(function() {
                          
               
               //div com o nome da banda/artista do album
-
-             
 
               let div_band_artist = $('<div></div>').attr('class', 'band-artist');
 
