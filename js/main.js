@@ -142,7 +142,7 @@ $(document).ready(function() {
                 let div_caixa_img = $('<div></div>').attr('class', 'caixa_img');
                 div_music.append(div_caixa_img);
                 
-                let div_art_img = $('<img></img>').attr('class', 'div_art_img').attr('src',response.images[0].image);
+                let div_art_img = $('<img></img>').attr('class', 'art_img').attr('src',response.images[0].image);
                 div_caixa_img.append(div_art_img);
 
               });

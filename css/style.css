@@ -8,15 +8,15 @@
 
 .logo{
 
-	margin-left: 25%;
-	margin-right: 25%;
-	margin-bottom: 2%;
-	margin-top: 2%;
+    
+   text-align: center;
 }
 
 .imagemlogo{
+    
+    margin-top: 1%;
+    margin-bottom: 1%;
 
-	margin-left:25%;
 }
 
 label{
@@ -28,8 +28,7 @@ label{
 
 body{
     
-    background-image:url("../img/background3.png");    
-
+   background: linear-gradient(to right, black, black,white,white,white,white,white,black,black);
 }
 
 
