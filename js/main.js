@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+  $('.resultado-pesquisa').hide();
+
   $('.search-box').keypress(function(e) {
     if (e.which == 13) { //Enter key pressed
 
@@ -25,11 +27,9 @@ $(document).ready(function() {
         //fazer o pedido HTTP GET ao servico MusicBrainz
         $.get(url, function(response, status) {
           
-          if (status == 'success') {
+          if (status == 'success') {  
 
             for (let artist of response.artists) {
-
-              console.log(response.artists.length);
 
               //div que contem toda a informação de um artista
               let div_artista = $('<div></div>').attr('class', 'artista');
@@ -38,23 +38,28 @@ $(document).ready(function() {
 
                //div da imagem do artista
 
-              var image_link = 'https://en.wikipedia.org/w/api.php?action=query&titles=' + artist.name + '&prop=images&format=json';
+              var image_link = 'http://en.wikipedia.org/w/api.php?action=query&formatversion=2&titles='+ artist.name +'&prop=pageimages&pithumbsize=200&format=json&origin=*';
               var image_link = encodeURI(image_link);
 
-              console.log(image_link);
-
-              $.get(image_link, function(response, status) {
-
+                  $.get(image_link, function(response, status) {
 
                   let div_caixa_img = $('<div></div>').attr('class', 'caixa_img');
-                  
-                  div_artista.append(div_caixa_img);
+                  div_artista.prepend(div_caixa_img);
 
-                  var art_img = $('<img></img>').attr('class', 'art_img').attr('src',response.query.pages[83688].images[0].title);
+                  if(response.query.pages[0].thumbnail){
 
+                  var art_img = $('<img></img>').attr('class', 'art_img').attr('src',response.query.pages[0].thumbnail.source);
                   div_caixa_img.append(art_img);
 
-                
+                  }
+
+                  else{
+
+                    var art_img = $('<img></img>').attr('class', 'art_img').attr('src','img/nosrc.png');
+                    div_caixa_img.append(art_img);
+
+                  }
+                 
 
               });
 
@@ -83,6 +88,8 @@ $(document).ready(function() {
 
                               let label_score = $('<label></label>').attr('for', 'score').html('Score: ' + artist.score);
                               div_score.append(label_score);
+
+                      
 
             }
 		
@@ -138,12 +145,21 @@ $(document).ready(function() {
               var cover_music = encodeURI(cover_music);
 
               $.get(cover_music, function(response, status) {
-       
-                let div_caixa_img = $('<div></div>').attr('class', 'caixa_img');
-                div_music.append(div_caixa_img);
+
+                var div_caixa_img = $('<div></div>').attr('class', 'caixa_img');
+                div_music.prepend(div_caixa_img);
+
+                if(response.images[0].thumbnails.small){
                 
-                let div_art_img = $('<img></img>').attr('class', 'art_img').attr('src',response.images[0].image);
+                var div_art_img = $('<img></img>').attr('class', 'art_img').attr('src',response.images[0].thumbnails.small);
                 div_caixa_img.append(div_art_img);
+
+                }else{
+                  
+                let div_art_img = $('<img></img>').attr('class', 'art_img').attr('src','../img/nosrc.png');
+                div_caixa_img.append(div_art_img);
+
+                }
 
               });
                 
@@ -218,7 +234,7 @@ $(document).ready(function() {
 
                     var div_caixa_img = $('<div></div>').attr('class', 'caixa_img');
                     
-                    div_release.append(div_caixa_img);
+                    div_release.prepend(div_caixa_img);
 
                     var art_img = $('<img></img>').attr('class', 'art_img').attr('src',response.images[0].image);
 
@@ -231,7 +247,7 @@ $(document).ready(function() {
 
                     div_release.append(div_caixa_img);
       
-                    var art_img = $('<img></img>').attr('class', 'art_img').attr('src',"../img/nosrc.png");
+                    var art_img = $('<img></img>').attr('class', 'art_img').attr('src',"/img/nosrc.png");
       
                     div_caixa_img.append(art_img);
                   }
