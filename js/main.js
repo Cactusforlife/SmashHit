@@ -3,9 +3,9 @@ $(document).ready(function() {
   $('.search-box').keypress(function(e) {
     if (e.which == 13) { //Enter key pressed
 
-      $('.resultados').show();
-
-      $('.resultados').empty();
+        $('.resultados').show();
+        
+		$('.resultados').empty();
 
       //ler o valor da caixa de input
       let search = $('.search-box').val();
@@ -14,7 +14,7 @@ $(document).ready(function() {
       let option = $('.search-menu').val();
 
       //verificar o valor do filtro e cria o url dependendo da opção
-
+	  
       if (option == 'artist') {
 
         var url = 'http://musicbrainz.org/ws/2/artist/?query=artist:' + search + '&fmt=json';
@@ -24,238 +24,266 @@ $(document).ready(function() {
 
         //fazer o pedido HTTP GET ao servico MusicBrainz
         $.get(url, function(response, status) {
+          
           if (status == 'success') {
 
             for (let artist of response.artists) {
 
-            console.log(response.artists.length);
-
+              console.log(response.artists.length);
 
               //div que contem toda a informação de um artista
               let div_artista = $('<div></div>').attr('class', 'artista');
 
               $('.resultados').append(div_artista);
 
-              //div da imagem do artista
+               //div da imagem do artista
 
-              let div_caixa_img = $('<div></div>').attr('class', 'caixa_img');
+              var image_link = 'https://en.wikipedia.org/w/api.php?action=query&titles=' + artist.name + '&prop=images&format=json';
+              var image_link = encodeURI(image_link);
 
-              div_artista.append(div_caixa_img);
+              console.log(image_link);
 
-              let art_img = $('<img></img>').attr('class', 'art_img').attr('src',"img/nosrc.png");
-
-              div_caixa_img.append(art_img);
-
+              $.get(image_link, function(response, status) {
 
 
+                  let div_caixa_img = $('<div></div>').attr('class', 'caixa_img');
+                  
+                  div_artista.append(div_caixa_img);
 
-              //div com o nome do artista
-              let div_nome = $('<div></div>').attr('class', 'nome');
+                  var art_img = $('<img></img>').attr('class', 'art_img').attr('src',response.query.pages[83688].images[0].title);
 
-              div_artista.append(div_nome);
+                  div_caixa_img.append(art_img);
 
-              let label_nome = $('<label></label>').attr('for', 'nome').html('Artist/Group: '+ artist.name);
-
-              div_nome.append(label_nome);
-
-
-              //div com o type do artista
-              let div_type = $('<div></div>').attr('class', 'type');
-
-              div_artista.append(div_type);
-
-              let label_type = $('<label></label>').attr('for', 'type').html('Type: '+artist.type);
-
-              div_type.append(label_type);
-
-
-              //div com o score do artista
-
-              let div_score = $('<div></div>').attr('class', 'score');
-
-              div_artista.append(div_score);
-
-              let label_score = $('<label></label>').attr('for', 'score').html('Score: '+artist.score);
-
-              div_score.append(label_score);
-
-            }
-
-              $('.artista').click(function(){
-
-                $('.resultados').hide();
-
-              
-
-
-
-
-
+                
 
               });
 
-          }
+              //div com o nome do artista
+                 
+                let div_nome = $('<div></div>').attr('class', 'nome');
+                div_artista.append(div_nome);
 
+                  let label_nome = $('<label></label>').attr('for', 'nome').html('Artist/Group: ' + artist.name);
+                  div_nome.append(label_nome);
+
+
+                  //div com o tipo do artista
+
+                    let div_type = $('<div></div>').attr('class', 'type');
+                    div_artista.append(div_type);
+
+                      let label_type = $('<label></label>').attr('for', 'type').html('Type: ' + artist.type);
+                      div_type.append(label_type);
+
+
+                      //div com o score do artista
+
+                          let div_score = $('<div></div>').attr('class', 'score');
+                          div_artista.append(div_score);
+
+                              let label_score = $('<label></label>').attr('for', 'score').html('Score: ' + artist.score);
+                              div_score.append(label_score);
+
+            }
+		
+		//Dar hide do conteudo da pagina e mostrar a nova "pagina" com detalhes do artista e os seus albuns
+
+     
+                $('.artista').click(function(){
+                    $('.resultados').hide();     
+
+                        let div_caixa_artist = $('<div></div>').attr('class','artist_namebox').html('Artist name ');
+                        $('.resultado-pesquisa').append(div_caixa_artist);
+
+                            let div_caixa_real_artist = $('<div></div>').attr('class','artist_namebox_real').html('Real name');
+                            $('.resultado-pesquisa').append(div_caixa_real_artist);
+
+                                let div_resumo_artist = $('<div></div>').attr('class','caixa_wiki');
+                                $('.resultado-pesquisa').append(div_resumo_artist);
+
+                                    let div_caixa_album = $('<div></div>').attr('class','caixa_album').html('Albuns');
+                                    $('.resultado-pesquisa').append(div_caixa_album);                 
+
+
+                    
+          });
+
+		  }
 
         });
 
 
 
-    } else if (option == 'music') {
+      } else if (option == 'music') {
 
-      var url = 'http://musicbrainz.org/ws/2/recording/?query=recording:' + search + '&fmt=json';
-      var url = encodeURI(url);
+        var url = 'http://musicbrainz.org/ws/2/recording/?query=recording:' + search + '&fmt=json';
+        var url = encodeURI(url);
 
-      console.log(url);
+        console.log(url);
 
-      //fazer o pedido HTTP GET ao servico MusicBrainz
-      $.get(url, function(response, status) {
+        //fazer o pedido HTTP GET ao servico MusicBrainz
+        $.get(url, function(response, status) {
 
-        if (status == 'success') {
+          if (status == 'success') {
 
-          for (let music of response.recordings) {
+            for (let music of response.recordings) {
 
-            //div que contem toda a informação de um artista
-            let div_music = $('<div></div>').attr('class', 'music');
+              //div que contem toda a informação de um artista
+              let div_music = $('<div></div>').attr('class', 'music');
+              $('.resultados').append(div_music);
 
-            $('.resultados').append(div_music);
+                //div da imagem do artista
 
-            //div da imagem do artista
+              var cover_music = "http://coverartarchive.org/release/"+music.releases[0].id;
+              var cover_music = encodeURI(cover_music);
 
-            let div_caixa_img = $('<div></div>').attr('class', 'caixa_img');
+              $.get(cover_music, function(response, status) {
+       
+                let div_caixa_img = $('<div></div>').attr('class', 'caixa_img');
+                div_music.append(div_caixa_img);
+                
+                let div_art_img = $('<img></img>').attr('class', 'art_img').attr('src',response.images[0].image);
+                div_caixa_img.append(div_art_img);
 
-            div_music.append(div_caixa_img);
+              });
+                
+              //div com o nome da musica
 
-            let art_img = $('<img></img>').attr('class', 'art_img').attr('src',"img/nosrc.png");
+              let div_song = $('<div></div>').attr('class', 'song');
+              div_music.append(div_song);
 
-            div_caixa_img.append(art_img);
-
-
-            //div com o nome da musica
-
-            let div_song = $('<div></div>').attr('class', 'song');
-
-            div_music.append(div_song);
-
-            let label_song = $('<label></label>').attr('for', 'song').html('Song: '+music.title);
-
-            div_song.append(label_song);
+              let label_song = $('<label></label>').attr('for', 'song').html('Song: ' + music.title);
+              div_song.append(label_song);
 
 
-            //div com o score da music
+              //div com o score da music
 
-            let div_score = $('<div></div>').attr('class', 'score');
+              let div_score = $('<div></div>').attr('class', 'score');
+              div_music.append(div_score);
 
-            div_music.append(div_score);
+              let label_score = $('<label></label>').attr('for', 'score').html('Score: ' + music.score);
+              div_score.append(label_score);
 
-            let label_score = $('<label></label>').attr('for', 'score').html('Score: '+music.score);
+              //div com o status da musica
 
-            div_score.append(label_score);
+              let div_status = $('<div></div>').attr('class', 'status');
+              div_music.append(div_status);
 
-            //div com o status da musica
+              let label_status = $('<label></label>').attr('for', 'status').html('Status: ' + music.releases[0].status);
+              div_status.append(label_status);
 
-            let div_status = $('<div></div>').attr('class', 'status');
+              //div com o A banda/artista pertencente da musica
 
-            div_music.append(div_status);
+              let div_artist_band = $('<div></div>').attr('class', 'artist-band');
+              div_music.append(div_artist_band);
 
-            let label_status = $('<label></label>').attr('for', 'status').html('Status: '+music.releases[0].status);
+              let label_artist_band = $('<label></label>').attr('for', 'artist-band').html('Artist/Band: ' + music['artist-credit'][0].artist.name);
+              div_artist_band.append(label_artist_band);
 
-            div_status.append(label_status);
 
-            //div com o A banda/artista pertencente da musica
-
-            let div_artist_band = $('<div></div>').attr('class', 'artist-band');
-
-            div_music.append(div_artist_band);
-
-            let label_artist_band = $('<label></label>').attr('for', 'artist-band').html('Artist/Band: '+music['artist-credit'][0].artist.name);
-
-            div_artist_band.append(label_artist_band);
-
+            }
 
           }
-
-        }
-      });
+        });
 
 
-    } else {
+      } else {
 
-      var url = 'http://musicbrainz.org/ws/2/release/?query=release:' + search + '&fmt=json';
-      var url = encodeURI(url);
+        var url = 'http://musicbrainz.org/ws/2/release/?query=release:' + search + '&fmt=json';
+        var url = encodeURI(url);
 
-      console.log(url);
+        console.log(url);
 
-      //fazer o pedido HTTP GET ao servico MusicBrainz
-      $.get(url, function(response, status) {
+        //fazer o pedido HTTP GET ao servico MusicBrainz
+        $.get(url, function(response, status) {
 
-        if (status == 'success') {
+          if (status == 'success') {
 
 
-          for (let album of response.releases) {
+            for (let album of response.releases) {
 
-            //div que contem toda a informação de um artista
-            let div_release = $('<div></div>').attr('class', 'release');
+              //div que contem toda a informação de um artista
+              let div_release = $('<div></div>').attr('class', 'release');
 
-            $('.resultados').append(div_release);
+              $('.resultados').append(div_release);
 
-            //div da imagem do artista
+              //div da imagem do artista
 
-            let div_caixa_img = $('<div></div>').attr('class', 'caixa_img');
+              var cover = "http://coverartarchive.org/release/"+album.id;
+              var cover = encodeURI(cover);
 
-            div_release.append(div_caixa_img);
+                 $.get(cover, function(response, status) {
 
-            let art_img = $('<img></img>').attr('class', 'art_img').attr('src',"img/nosrc.png");
+                  if (response.images[0].image) {
 
-            div_caixa_img.append(art_img);
+                    var div_caixa_img = $('<div></div>').attr('class', 'caixa_img');
+                    
+                    div_release.append(div_caixa_img);
 
-            //div com o nome da banda/artista do album
+                    var art_img = $('<img></img>').attr('class', 'art_img').attr('src',response.images[0].image);
 
-            let div_band_artist = $('<div></div>').attr('class', 'band-artist');
+                    div_caixa_img.append(art_img);
 
-            div_release.append(div_band_artist);
+                  }
+                  else{
+                    
+                    var div_caixa_img = $('<div></div>').attr('class', 'caixa_img');
 
-            let label_band_artist = $('<label></label>').attr('for', 'band-artist').html('Band/Artist: '+album['artist-credit'][0].artist.name);
+                    div_release.append(div_caixa_img);
+      
+                    var art_img = $('<img></img>').attr('class', 'art_img').attr('src',"../img/nosrc.png");
+      
+                    div_caixa_img.append(art_img);
+                  }
 
-            div_band_artist.append(label_band_artist);
+              });
+                         
+              
+              //div com o nome da banda/artista do album
 
-            //div com o nome da banda
+              let div_band_artist = $('<div></div>').attr('class', 'band-artist');
 
-            let div_album = $('<div></div>').attr('class', 'album');
+              div_release.append(div_band_artist);
 
-            div_release.append(div_album);
+              let label_band_artist = $('<label></label>').attr('for', 'band-artist').html('Band/Artist: ' + album['artist-credit'][0].artist.name);
 
-            let label_album = $('<label></label>').attr('for', 'album').html('Album: '+ album.title);
+              div_band_artist.append(label_band_artist);
 
-            div_album.append(label_album);
+              //div com o nome da banda
 
-            //div com as tracks do album
+              let div_album = $('<div></div>').attr('class', 'album');
 
-            let div_track = $('<div></div>').attr('class', 'track');
+              div_release.append(div_album);
 
-            div_release.append(div_track);
+              let label_album = $('<label></label>').attr('for', 'album').html('Album: ' + album.title);
 
-            let label_track = $('<label></label>').attr('for', 'track').html('Nº Tracks: '+album.media[0]['track-count']);
+              div_album.append(label_album);
 
-            div_release.append(label_track);
+              //div com as tracks do album
 
-            //div com o socre do album
+              let label_track = $('<label></label>').attr('for', 'track').html('Nº Tracks: ' + album.media[0]['track-count']);
 
-            let div_score = $('<div></div>').attr('class', 'score');
+              div_release.append(label_track);
 
-            div_release.append(div_score);
+              //div com o socre do album
 
-            let label_score = $('<label></label>').attr('for', 'score').html('Score: '+album.score);
+              let div_score = $('<div></div>').attr('class', 'score');
 
-            div_score.append(label_score);
+              div_release.append(div_score);
 
+              let label_score = $('<label></label>').attr('for', 'score').html('Score: ' + album.score);
+
+              div_score.append(label_score);
+
+            
+
+            }
           }
-        }
 
-      });
+        });
 
-    }
+      }
 
-  };
-});
+    };
+  });
 });
