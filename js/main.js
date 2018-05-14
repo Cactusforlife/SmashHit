@@ -3,6 +3,8 @@ $(document).ready(function() {
   $('.search-box').keypress(function(e) {
     if (e.which == 13) { //Enter key pressed
 
+      $('.resultados').show();
+
       $('.resultados').empty();
 
       //ler o valor da caixa de input
@@ -82,6 +84,8 @@ $(document).ready(function() {
               $('.artista').click(function(){
 
                 $('.resultados').hide();
+
+              
 
 
 
