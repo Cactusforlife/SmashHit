@@ -91,33 +91,52 @@ $(document).ready(function() {
 
                       
 
-            }
-		
+               }
 		//Dar hide do conteudo da pagina e mostrar a nova "pagina" com detalhes do artista e os seus albuns
 
      
                 $('.artista').click(function(){
-                    $('.resultados').hide();     
+                    $('.resultados').hide();   
+                     $('.resultado-pesquisa').show();   
 
-                        let div_caixa_artist = $('<div></div>').attr('class','artist_namebox').html('Artist name ');
+                        let div_caixa_artist = $('<div></div>').attr('class','artist_namebox');
                         $('.resultado-pesquisa').append(div_caixa_artist);
+                    
+                            let label_caixa_artist =$('<label></label>').attr('class','artist_namebox_label').html('Carpenter Brut');
+                            div_caixa_artist.append(label_caixa_artist);
 
-                            let div_caixa_real_artist = $('<div></div>').attr('class','artist_namebox_real').html('Real name');
-                            $('.resultado-pesquisa').append(div_caixa_real_artist);
+                                let div_caixa_real_artist = $('<div></div>').attr('class','artist_namebox_real');
+                                $('.resultado-pesquisa').append(div_caixa_real_artist);
+                    
+                                    let label_caixa_realname =$('<label></label>').attr('class','artist_realname_label').html('Frank');
+                                    div_caixa_real_artist.append(label_caixa_realname);
 
-                                let div_resumo_artist = $('<div></div>').attr('class','caixa_wiki');
-                                $('.resultado-pesquisa').append(div_resumo_artist);
+                                        let div_resumo_artist = $('<div></div>').attr('class','caixa_wiki');
+                                        $('.resultado-pesquisa').append(div_resumo_artist);
+                    
+                                            let label_caixa_wiki =$('<label></label>').attr('class','wiki_label').html('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eget purus egestas, hendrerit arcu eget, tristique urna. Praesent ultrices est eget velit dignissim, nec tincidunt ante malesuada. Sed in turpis pulvinar, blandit massa vel, condimentum turpis. Quisque bibendum placerat risus, ac iaculis tortor. Morbi vitae consequat quam. Aenean dignissim varius lacus, ac pretium purus pretium quis. In luctus finibus massa quis porttitor. Duis blandit, quam vel tempus aliquam, tellus urna iaculis eros, pharetra varius urna massa nec libero. Morbi lorem arcu, dictum a ornare sed, volutpat at lacus. ');
+                                            div_resumo_artist.append(label_caixa_wiki);
 
-                                    let div_caixa_album = $('<div></div>').attr('class','caixa_album').html('Albuns');
-                                    $('.resultado-pesquisa').append(div_caixa_album);                 
+                                                let div_img_artist = $('<div></div>').attr('class','caixa_img_artist');
+                                                $('.resultado-pesquisa').append(div_img_artist); 
 
-
+                                                    let div_img_box = $('<img></img>').attr('class','caixa_img_box').attr('src','https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Beyonce_-_The_Formation_World_Tour%2C_at_Wembley_Stadium_in_London%2C_England.jpg/250px-Beyonce_-_The_Formation_World_Tour%2C_at_Wembley_Stadium_in_London%2C_England.jpg');
+                                                    div_img_artist.append(div_img_box);
+                    
+                                                        let div_caixa_albums = $('<div></div>').attr('class','faixas_album');
+                                                        $('.resultado-pesquisa').append(div_caixa_albums);
+                                                            
+                                                            
+                                                            
+                                                        
                     
           });
 
 		  }
 
         });
+
+
 
 
 

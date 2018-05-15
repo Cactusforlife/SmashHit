@@ -1,4 +1,4 @@
-                                /* GERAL */
+		                                /* GERAL */
 
 /* logo */
 
@@ -36,8 +36,7 @@ body{
 
 .search-div{
 
-	margin-left: 25%;
-	margin-right: 25%;
+	text-align: center;
 	font:1.2em 'Montserrat Alternates';
 	border: 1px;
 	border-color: black;
@@ -49,7 +48,7 @@ body{
 
 .search-box{
 
-	margin-left: 25%;
+	text-align: center;
 	width: 230px;
 	height: 20px;
 	text-align: center;
@@ -112,7 +111,7 @@ body{
 
 .art_img{
 
-	max-height: 150px;
+	max-height: 200px;
 	max-width: 208.5px;
 	border: 0px solid #ccc;
 	border-radius: 8px;
@@ -120,11 +119,48 @@ body{
 
 }
 
+
 .resultado-pesquisa{
 
-	margin-top: 2%;
+    display: grid;
+    grid-template-areas:
+    'namebox img img'
+    'realname img img'
+    'wikip img img';
+    grid-gap: 10px;
+    padding: 10px;
+    margin-top: 2%;
 	margin-left: 25%;
 	margin-right: 25%;
+        
+}
+
+.artist_namebox{
+    grid-area: namebox;
+        
+}
+
+.artist_namebox_real{
+    grid-area: realname;
     
+}
+
+.caixa_wiki{
+    
+    grid-area: wikip;
+}
+
+.caixa_img_artist{
+    
+    grid-area: img;
+}
+
+.caixa_img_box{
+    
+    max-height: 200px;
+    max-width: 200px;
+   	border: 0px solid #ccc;
+	border-radius: 8px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
