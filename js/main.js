@@ -92,8 +92,8 @@ $(document).ready(function() {
                       
 
                }
-		//Dar hide do conteudo da pagina e mostrar a nova "pagina" com detalhes do artista e os seus albuns
-
+		
+               //  Dar hide do conteudo da pagina e mostrar a nova "pagina" com detalhes do artista e os seus albuns
      
                 $('.artista').click(function(){
                     $('.resultados').hide();   
@@ -126,9 +126,14 @@ $(document).ready(function() {
                                                         let div_caixa_albums = $('<div></div>').attr('class','faixas_album');
                                                         $('.resultado-pesquisa').append(div_caixa_albums);
                                                             
+                                                            let div_albums_name = $('<div></div>)').attr('class','albums_title').html('ALBUM');
+                                                            div_caixa_albums.append(div_albums_name);
                                                             
+                    
+                                                                let label_albums_name = $('<label></label>').attr('class','label_albums_name').html('<br>who run the world');
+                                                                div_albums_name.append(label_albums_name);                                                        
+                                                                                                
                                                             
-                                                        
                     
           });
 
