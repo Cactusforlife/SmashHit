@@ -5,9 +5,10 @@ $(document).ready(function() {
   $('.search-box').keypress(function(e) {
     if (e.which == 13) { //Enter key pressed
 
-        $('.resultados').show();
-        
-		$('.resultados').empty();
+        $('.resultados').show();        
+		$('.resultados').empty();        
+        $('.resultado-pesquisa').hide();
+        $('.resultado-pesquisa').empty();
 
       //ler o valor da caixa de input
       let search = $('.search-box').val();
