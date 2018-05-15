@@ -81,7 +81,7 @@ body {
 .artista {
 	color: black;
 	max-width: 208.5px;
-	height: 201px;
+	max-height: 300px;
 	font-size: 14px;
 	text-align: center;
 	font-family: 'Open Sans', Arial, sans-serif;
@@ -96,7 +96,7 @@ body {
 
 
 .art_img {
-	max-height: 133px;
+	max-height: 200px;
 	max-width: 208.5px;
 	border: 0px solid #ccc;
 	border-radius: 8px;
