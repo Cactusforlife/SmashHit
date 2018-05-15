@@ -93,14 +93,18 @@ $(document).ready(function() {
                                     //div com o pais do artista
 
                                     let div_country = $('<div></div>').attr('class', 'country');
-                                    div_artista.append(div_country);
+                                    div_artista.append(div_country);                             
 
-                                    let label_country = $('<label></label>').attr('for', 'country').html('Country: ' + artist.country);
-                                    div_country.append(label_country);
+                                    if (artist.country == undefined) {
 
-                      
+                                          
+                                    }
 
-               }
+                                    else{
+                                            let label_country = $('<label></label>').attr('for', 'country').html('Country: ' + artist.country);
+                                            div_country.append(label_country);
+                                    }
+                                }
 		
                //  Dar hide do conteudo da pagina e mostrar a nova "pagina" com detalhes do artista e os seus albuns
      
