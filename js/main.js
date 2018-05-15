@@ -90,6 +90,14 @@ $(document).ready(function() {
                               let label_score = $('<label></label>').attr('for', 'score').html('Score: ' + artist.score);
                               div_score.append(label_score);
 
+                                    //div com o pais do artista
+
+                                    let div_country = $('<div></div>').attr('class', 'country');
+                                    div_artista.append(div_country);
+
+                                    let label_country = $('<label></label>').attr('for', 'country').html('Country: ' + artist.country);
+                                    div_country.append(label_country);
+
                       
 
                }
