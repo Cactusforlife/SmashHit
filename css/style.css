@@ -23,7 +23,7 @@
 
 
 body {    
-   background: linear-gradient(to right, black, black,white,white,white,white,white,black,black);
+   background: linear-gradient(to right, black, white,white,white,white,white,white,white,black);
 }
 
 
@@ -71,10 +71,9 @@ body {
 .resultados {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
-	margin-top: 2%;
-	margin-left: 25%;
-	margin-right: 25%;
-	text-align: center;
+	margin-top: 5%;
+	margin-left: 15%;
+	margin-right: 5%;
 }
 
 
@@ -84,7 +83,6 @@ body {
 	max-height: 300px;
 	font-size: 14px;
 	text-align: center;
-	font-family: 'Open Sans', Arial, sans-serif;
 }
 
 .caixa_img {    
@@ -114,8 +112,8 @@ body {
     grid-gap: 10px;
     padding: 10px;
     margin-top: 2%;
-	margin-left: 25%;
-	margin-right: 25%;        
+	margin-left: 15%;
+	margin-right: 15%;        
 }
 
 .artist_namebox {
