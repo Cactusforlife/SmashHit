@@ -113,8 +113,8 @@ $(document).ready(function() {
                      $('.resultado-pesquisa').show();
 
 
-                     let artist_album = 'http://musicbrainz.org/ws/2/artist/' + artist.id + '?inc=releases&fmt=json';
-                     let artist_album = encodeURI(artist_album);
+                     var artist_album = 'http://musicbrainz.org/ws/2/artist/' + artist.id + '?inc=releases&fmt=json';
+                     var artist_album = encodeURI(artist_album);
 
                     $.get(artist_album, function(response, status) {                     
                      
