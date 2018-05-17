@@ -6,7 +6,7 @@ $(document).ready(function() {
     if (e.which == 13) { //Enter key pressed
 
         $('.resultados').show();        
-		$('.resultados').empty();        
+		    $('.resultados').empty();        
         $('.resultado-pesquisa').hide();
         $('.resultado-pesquisa').empty();
 
@@ -110,12 +110,19 @@ $(document).ready(function() {
      
                 $('.artista').click(function(){
                     $('.resultados').hide();   
-                     $('.resultado-pesquisa').show();   
+                     $('.resultado-pesquisa').show();
+
+
+                     let artist_album = 'http://musicbrainz.org/ws/2/artist/' + artist.id + '?inc=releases&fmt=json';
+                     let artist_album = encodeURI(artist_album);
+
+                    $.get(artist_album, function(response, status) {                     
+                     
 
                         let div_caixa_artist = $('<div></div>').attr('class','artist_namebox');
                         $('.resultado-pesquisa').append(div_caixa_artist);
                     
-                            let label_caixa_artist =$('<label></label>').attr('class','artist_namebox_label').html('Carpenter Brut');
+                            let label_caixa_artist =$('<label></label>').attr('class','artist_namebox_label').html(response.name);
                             div_caixa_artist.append(label_caixa_artist);
 
                                 let div_caixa_real_artist = $('<div></div>').attr('class','artist_namebox_real');
@@ -144,7 +151,8 @@ $(document).ready(function() {
                                                             
                     
                                                                 let label_albums_name = $('<label></label>').attr('class','label_albums_name').html('<br>who run the world');
-                                                                div_albums_name.append(label_albums_name);                                                        
+                                                                div_albums_name.append(label_albums_name);
+                    }                                                        
                                                                                                 
                                                             
                     
@@ -177,12 +185,12 @@ $(document).ready(function() {
               $('.resultados').append(div_music);
 
                 //div da imagem do artista
-
+              
               var cover_music = "http://coverartarchive.org/release/"+music.releases[0].id;
               var cover_music = encodeURI(cover_music);
-
+              
               $.get(cover_music, function(response, status) {
-
+                
                 var div_caixa_img = $('<div></div>').attr('class', 'caixa_img');
                 div_music.prepend(div_caixa_img);
 
@@ -265,7 +273,11 @@ $(document).ready(function() {
               var cover = "http://coverartarchive.org/release/"+album.id;
               var cover = encodeURI(cover);
 
+              
+              
                  $.get(cover, function(response, status) {
+
+                  
 
                   if (response.images[0].image) {
 
