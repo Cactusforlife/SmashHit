@@ -152,7 +152,7 @@ $(document).ready(function() {
                     
                                                                 let label_albums_name = $('<label></label>').attr('class','label_albums_name').html('<br>who run the world');
                                                                 div_albums_name.append(label_albums_name);
-                    }                                                        
+                    });                                                        
                                                                                                 
                                                             
                     
