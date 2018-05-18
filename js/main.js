@@ -33,7 +33,7 @@ $(document).ready(function () {
               for (let artist of response.artists) {
 
                 //div que contem toda a informação de um artista
-                let div_artista = $('<div></div>').attr('class', 'artista');
+                let div_artista = $('<div></div>').attr('class', 'artista').click(resultados);
 
                 $('.resultados').append(div_artista);
 
@@ -104,7 +104,7 @@ $(document).ready(function () {
 
                 //  Dar hide do conteudo da pagina e mostrar a nova "pagina" com detalhes do artista e os seus albuns
 
-                $('.artista').click(function () {
+                function resultados(){
 
                   $('.resultados').hide();
                   $('.resultado-pesquisa').show();
@@ -155,7 +155,7 @@ $(document).ready(function () {
 
 
 
-                });
+                };
 
               }
 
