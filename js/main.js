@@ -116,7 +116,7 @@ $(document).ready(function() {
                      var artist_album = 'http://musicbrainz.org/ws/2/artist/' + artist.id + '?inc=releases&fmt=json';
                      var artist_album = encodeURI(artist_album);
 
-                    $.get(artist_album, function(response, status) {                     
+                    $.get(artist_album, function(response, status) {                   
                      
 
                         let div_caixa_artist = $('<div></div>').attr('class','artist_namebox');
@@ -188,24 +188,27 @@ $(document).ready(function() {
               
               var cover_music = "http://coverartarchive.org/release/"+music.releases[0].id;
               var cover_music = encodeURI(cover_music);
+
+              console.log(cover_music);
               
               $.get(cover_music, function(response, status) {
-                
+
                 var div_caixa_img = $('<div></div>').attr('class', 'caixa_img');
                 div_music.prepend(div_caixa_img);
-
-                if(response.images[0].thumbnails.small){
                 
                 var div_art_img = $('<img></img>').attr('class', 'art_img').attr('src',response.images[0].thumbnails.small);
-                div_caixa_img.append(div_art_img);
+                div_caixa_img.prepend(div_art_img);
 
-                }else{
-                  
-                let div_art_img = $('<img></img>').attr('class', 'art_img').attr('src','../img/nosrc.png');
-                div_caixa_img.append(div_art_img);
 
-                }
+              
+              }).fail(function() {
 
+                var div_caixa_img = $('<div></div>').attr('class', 'caixa_img');
+                div_music.prepend(div_caixa_img);
+  
+                let div_art_img = $('<img></img>').attr('class', 'art_img').attr('src','img/nosrc.png');
+                div_caixa_img.prepend(div_art_img);
+                
               });
                 
               //div com o nome da musica
@@ -275,34 +278,28 @@ $(document).ready(function() {
 
               
               
-                 $.get(cover, function(response, status) {
+              $.get(cover, function(response, status) {
 
-                  
 
-                  if (response.images[0].image) {
+                var div_caixa_img = $('<div></div>').attr('class', 'caixa_img');
+                
+                div_release.prepend(div_caixa_img);
 
-                    var div_caixa_img = $('<div></div>').attr('class', 'caixa_img');
-                    
-                    div_release.prepend(div_caixa_img);
+                var art_img = $('<img></img>').attr('class', 'art_img').attr('src',response.images[0].image);
 
-                    var art_img = $('<img></img>').attr('class', 'art_img').attr('src',response.images[0].image);
+                div_caixa_img.append(art_img);
 
-                    div_caixa_img.append(art_img);
+              }).fail(function(){
 
-                  }
-                  else{
-                    
-                    var div_caixa_img = $('<div></div>').attr('class', 'caixa_img');
+                var div_caixa_img = $('<div></div>').attr('class', 'caixa_img');
 
-                    div_release.append(div_caixa_img);
-      
-                    var art_img = $('<img></img>').attr('class', 'art_img').attr('src',"/img/nosrc.png");
-      
-                    div_caixa_img.append(art_img);
-                  }
-
+                div_release.prepend(div_caixa_img);
+  
+                var art_img = $('<img></img>').attr('class', 'art_img').attr('src',"img/nosrc.png");
+  
+                div_caixa_img.append(art_img);
               });
-                         
+                                      
               
               //div com o nome da banda/artista do album
 
