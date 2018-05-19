@@ -42,6 +42,8 @@ $(document).ready(function () {
                 var image_link = 'http://en.wikipedia.org/w/api.php?action=query&formatversion=2&titles=' + artist.name + '&prop=pageimages&pithumbsize=200&format=json&origin=*';
                 var image_link = encodeURI(image_link);
 
+                console.log(image_link);
+
                 $.get(image_link, function (response, status) {
 
                   let div_caixa_img = $('<div></div>').attr('class', 'caixa_img');
@@ -104,7 +106,7 @@ $(document).ready(function () {
 
                 //  Dar hide do conteudo da pagina e mostrar a nova "pagina" com detalhes do artista e os seus albuns
 
-                function resultados(){
+                function resultados() {
 
                   $('.resultados').hide();
                   $('.resultado-pesquisa').show();
@@ -115,7 +117,7 @@ $(document).ready(function () {
 
                   $.get(artist_album, function (response, status) {
 
-                    console.log(response);
+                    console.log(artist_album);
 
 
                     let div_caixa_artist = $('<div></div>').attr('class', 'artist_namebox');
@@ -127,30 +129,72 @@ $(document).ready(function () {
                     let div_caixa_real_artist = $('<div></div>').attr('class', 'artist_namebox_real');
                     $('.resultado-pesquisa').append(div_caixa_real_artist);
 
-                    let label_caixa_realname = $('<label></label>').attr('class', 'artist_realname_label').html('Frank');
+                    let label_caixa_realname = $('<label></label>').attr('class', 'artist_realname_label').html(response.disambiguation);
                     div_caixa_real_artist.append(label_caixa_realname);
+
+                    //Vai buscar a Bio do artista a partir da wikipedia API
 
                     let div_resumo_artist = $('<div></div>').attr('class', 'caixa_wiki');
                     $('.resultado-pesquisa').append(div_resumo_artist);
 
-                    let label_caixa_wiki = $('<label></label>').attr('class', 'wiki_label').html('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas eget purus egestas, hendrerit arcu eget, tristique urna. Praesent ultrices est eget velit dignissim, nec tincidunt ante malesuada. Sed in turpis pulvinar, blandit massa vel, condimentum turpis. Quisque bibendum placerat risus, ac iaculis tortor. Morbi vitae consequat quam. Aenean dignissim varius lacus, ac pretium purus pretium quis. In luctus finibus massa quis porttitor. Duis blandit, quam vel tempus aliquam, tellus urna iaculis eros, pharetra varius urna massa nec libero. Morbi lorem arcu, dictum a ornare sed, volutpat at lacus. ');
-                    div_resumo_artist.append(label_caixa_wiki);
+                    var wiki_information = 'https://en.wikipedia.org/w/api.php?action=query&formatversion=2&prop=extracts&format=json&exintro=&titles=' + response.name + '&origin=*';
+                    var wiki_information = encodeURI(wiki_information);
 
-                    let div_img_artist = $('<div></div>').attr('class', 'caixa_img_artist');
-                    $('.resultado-pesquisa').append(div_img_artist);
+                    console.log(wiki_information);
 
-                    let div_img_box = $('<img></img>').attr('class', 'caixa_img_box').attr('src', 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Beyonce_-_The_Formation_World_Tour%2C_at_Wembley_Stadium_in_London%2C_England.jpg/250px-Beyonce_-_The_Formation_World_Tour%2C_at_Wembley_Stadium_in_London%2C_England.jpg');
-                    div_img_artist.append(div_img_box);
+                    $.get(wiki_information, function (response, status) {
+
+                      //falta fazer a condição se não tiver
+
+                      let label_caixa_wiki = $('<label></label>').attr('class', 'wiki_label').html(response.query.pages[0].extract);
+                      div_resumo_artist.append(label_caixa_wiki);
+
+                    });
+
+                    //Vai buscar a imagem do artista a partir da API da wikipedia
+
+                    var resultados_image = 'http://en.wikipedia.org/w/api.php?action=query&formatversion=2&titles=' + response.name + '&prop=pageimages&pithumbsize=200&format=json&origin=*';
+                    var resultados_image = encodeURI(resultados_image);
+
+
+                    $.get(resultados_image, function (response, status) {
+
+                      var div_img_artist = $('<div></div>').attr('class', 'caixa_img_artist');
+                      $('.resultado-pesquisa').append(div_img_artist);
+
+                      if (response.query.pages[0].thumbnail) {
+
+                        var div_img_box = $('<img></img>').attr('class', 'caixa_img_box').attr('src', response.query.pages[0].thumbnail.source);
+                        div_img_artist.append(div_img_box);
+
+                      } else {
+
+                        var div_img_box = $('<img></img>').attr('class', 'caixa_img_box').attr('src', 'img/nosrc.png');
+                        div_img_artist.append(div_img_box);
+
+
+                      }
+
+
+
+                    });
+
+                    console.log(response.releases.length);
 
                     let div_caixa_albums = $('<div></div>').attr('class', 'faixas_album');
                     $('.resultado-pesquisa').append(div_caixa_albums);
 
-                    let div_albums_name = $('<div></div>)').attr('class', 'albums_title').html('ALBUM');
+                    let div_albums_name = $('<div></div>)').attr('class', 'albums_title').html('ALBUMS');
                     div_caixa_albums.append(div_albums_name);
 
+                    for (let i = 0; i < response.releases.length; i++) {
 
-                    let label_albums_name = $('<label></label>').attr('class', 'label_albums_name').html('<br>who run the world');
-                    div_albums_name.append(label_albums_name);
+                      let label_albums_name = $('<label></label>').attr('class', 'label_albums_name').html(response.releases[i].title);
+                      div_albums_name.append(label_albums_name);
+
+
+                    }
+
                   });
 
 
