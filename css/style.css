@@ -1,4 +1,4 @@
-		                                /* GERAL */
+		                           /* GERAL */
 
 /* logo */
 
@@ -8,7 +8,8 @@
 }
 
 *{
-    font-family: coolvetica;
+   /* font-family: coolvetica;*/
+    font-family: "Lucida Sans", sans-serif;
     
 }
 
@@ -43,7 +44,6 @@ body {
 	text-align: center;
 	width: 230px;
 	height: 20px;
-	text-align: center;
 	font-family: 'Open Sans', Arial, sans-serif;
 	font-size: 16px;
 	background: #f8f8f8;
@@ -67,23 +67,31 @@ body {
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+/* Main Body dos resultados */
 
 .resultados {
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	margin-top: 5%;
-	margin-left: 15%;
-	margin-right: 5%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 2%;
+    margin-inline-start: 15%; 
+    margin-inline-end: 15%;
+    
 }
 
+/* Css dos caixotes para as pesquisas */
 
-.artista {
+.default {
 	color: black;
-	max-width: 208.5px;
+	max-width: 310px;
 	max-height: 300px;
 	font-size: 14px;
 	text-align: center;
+    width: calc(100% * (1/4) - 10px - 1px);/* vai dar gap entre os divs mesmo usando o flex wrap */
+    
 }
+
+
 
 .caixa_img {    
     max-height: 200px;
@@ -106,9 +114,10 @@ body {
 .resultado-pesquisa {
     display: grid;
     grid-template-areas:
-    'namebox img img'
-    'realname img img'
-    'wikip img img';
+    'namebox namebox'
+    'realname img'
+    'realname img'
+    'wikip img';
     grid-gap: 10px;
     padding: 10px;
     margin-top: 2%;
