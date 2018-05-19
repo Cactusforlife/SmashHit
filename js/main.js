@@ -179,7 +179,7 @@ $(document).ready(function () {
 
                     });
 
-                    console.log(response.releases.length);
+                    //mostra todos os albums do artista
 
                     let div_caixa_albums = $('<div></div>').attr('class', 'faixas_album');
                     $('.resultado-pesquisa').append(div_caixa_albums);
