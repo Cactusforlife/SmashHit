@@ -33,7 +33,7 @@ $(document).ready(function () {
               for (let artist of response.artists) {
 
                 //div que contem toda a informação de um artista
-                let div_artista = $('<div></div>').attr('class', 'artista').click(resultados_artista);
+                let div_artista = $('<div></div>').attr('class', 'default').click(resultados_artista);
 
                 $('.resultados').append(div_artista);
 
@@ -256,7 +256,7 @@ $(document).ready(function () {
             for (let music of response.recordings) {
 
               //div que contem toda a informação de um artista
-              let div_music = $('<div></div>').attr('class', 'music');
+              let div_music = $('<div></div>').attr('class', 'default');
               $('.resultados').append(div_music);
 
               //div da imagem do artista
@@ -342,7 +342,7 @@ $(document).ready(function () {
             for (let album of response.releases) {
 
               //div que contem toda a informação de um artista
-              let div_release = $('<div></div>').attr('class', 'release');
+              let div_release = $('<div></div>').attr('class', 'default');
 
               $('.resultados').append(div_release);
 
