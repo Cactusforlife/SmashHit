@@ -42,7 +42,7 @@ $(document).ready(function () {
                 var image_link = 'http://en.wikipedia.org/w/api.php?action=query&formatversion=2&titles=' + artist.name + '&prop=pageimages&pithumbsize=200&format=json&origin=*';
                 var image_link = encodeURI(image_link);
 
-                console.log(image_link);
+
 
                 $.get(image_link, function (response, status) {
 
@@ -144,10 +144,33 @@ $(document).ready(function () {
 
                     $.get(wiki_information, function (response, status) {
 
-                      //falta fazer a condição se não tiver
+                      console.log(response.query.pages[0].extract);
+                      console.log(response.query.pages[0].missing);
+                      
+                      
 
-                      let label_caixa_wiki = $('<label></label>').attr('class', 'wiki_label').html(response.query.pages[0].extract);
-                      div_resumo_artist.append(label_caixa_wiki);
+                      //falta fazer a condição se não tiver
+                      if (response.query.pages[0].extract ==  "<p><b>" + response.query.pages[0].title + "</b> may refer to:</p>\n\n" || response.query.pages[0].extract ==  "<p><b>" + response.query.pages[0].title + "</b> may refer to:</p>"){
+
+                             var label_caixa_wiki = $('<label></label>').attr('class', 'wiki_label').html('Infelizmente não se encontra informação sobre o artista');
+                             div_resumo_artist.append(label_caixa_wiki);
+
+                      }
+                      else if(response.query.pages[0].missing == true) {
+
+                            var label_caixa_wiki = $('<label></label>').attr('class', 'wiki_label').html('Infelizmente não se encontra informação sobre o artista');
+                            div_resumo_artist.append(label_caixa_wiki);
+
+                      }
+
+                      else {
+
+                          var label_caixa_wiki = $('<label></label>').attr('class', 'wiki_label').html(response.query.pages[0].extract);
+                          div_resumo_artist.append(label_caixa_wiki);
+
+                      }
+
+                      
 
                     });
 
@@ -155,6 +178,7 @@ $(document).ready(function () {
 
                     var resultados_image = 'http://en.wikipedia.org/w/api.php?action=query&formatversion=2&titles=' + response.name + '&prop=pageimages&pithumbsize=200&format=json&origin=*';
                     var resultados_image = encodeURI(resultados_image);
+                    
 
 
                     $.get(resultados_image, function (response, status) {
@@ -187,14 +211,24 @@ $(document).ready(function () {
                     let div_albums_name = $('<div></div>)').attr('class', 'albums_title').html('ALBUMS');
                     div_caixa_albums.append(div_albums_name);
 
-                    for (let i = 0; i < response.releases.length; i++) {
+                    if (response.releases == ""){
 
-                      let label_albums_name = $('<label></label>').attr('class', 'label_albums_name').html(response.releases[i].title);
+                      let label_albums_name = $('<label></label>').attr('class', 'label_albums_name').html('Não existe albums para este artista');
                       div_albums_name.append(label_albums_name);
-
-
+                      
                     }
 
+                    else{
+
+                       for (let i = 0; i < response.releases.length; i++) {
+
+                         let label_albums_name = $('<label></label>').attr('class', 'label_albums_name').html(response.releases[i].title);
+                         div_albums_name.append(label_albums_name);
+
+                       }
+
+                    }
+                      
                   });
 
 
