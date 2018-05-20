@@ -240,15 +240,74 @@ $(document).ready(function () {
 
                             $('.resultado-pesquisa').empty();
                               
-                            var album_link = 'http://musicbrainz.org/ws/2/release-group/?query=reid:' + response.releases[i].id + '&fmt=json';
+                            var album_link = 'http://musicbrainz.org/ws/2/release-group/?query=rgid:' + response['release-groups'][i].id + '&fmt=json';
                             var album_link = encodeURI(album_link);
 
                             console.log(album_link);
 
+
                             $.get(album_link, function (response, status) {
 
+                                /* Band_artist É ONDE FICA O NOME DO ALBUM EM QUESTAO*/
+                                let band_artist = $('<div></div>').attr('class', 'band-artist').html(response['release-groups'][0].title);
+                                $('.resultado-pesquisa').append(band_artist);
 
-                              
+
+                                //DIV onde vai ter a imagem do album
+
+                                var cover_music = "http://coverartarchive.org/release-group/" + response['release-groups'][0].id;
+                                var cover_music = encodeURI(cover_music);
+
+                                console.log(cover_music);
+
+                                $.get(cover_music, function (response, status) {
+
+                                  let div_img_album = $('<div></div>').attr('class', 'img_ablum');
+                                  $('.resultado-pesquisa').append(div_img_album);
+
+                                  let img_album = $('<img></img>').attr('src', response.images[0].thumbnails.small);
+                                  div_img_album.append(img_album);
+                                  
+                                }).fail(function () {
+
+                                   let div_img_album = $('<div></div>').attr('class', 'img_ablum');
+                                   $('.resultado-pesquisa').append(div_img_album);
+
+                                   let img_album = $('<img></img>').attr('src','img/nosrc.png');
+                                   div_img_album.append(img_album);
+
+
+                                });
+
+                                /* DIV PRINCIPAL QUE VAI TER DOIS DIVS, ESQUERDA= TRACKS DIREITA = IFRAME DO VIDEO DA MUSICA DO YOUTUBE */
+                                let albums_outline_track = $('<div></div>').attr('class', 'albums_outline');
+                                $('.resultado-pesquisa').append(albums_outline_track);
+
+
+                                var musica_album_link = 'http://musicbrainz.org/ws/2/recording/?query=rgid:' + response['release-groups'][0].id + '&fmt=json';
+                                var musica_album_link = encodeURI(musica_album_link)
+
+                                console.log(musica_album_link);
+
+                                $.get(musica_album_link, function (response, status) {
+
+                                  /* CAIXA QUE VAI AMOSTRAR AS MUSICAS DO ALBUM COM UM CICLO */
+                                  let albums_esquerda = $('<div></div>').attr('class', 'albums_esquerda');
+                                  albums_outline_track.append(albums_esquerda);
+
+                                  for(let i = 0; i < response.recordings.length; i++ ){
+
+                                    let label_album_esquerda = $('<label></label>').html(response.recordings[i].title + '<br>');
+                                    albums_esquerda.append(label_album_esquerda);
+
+                                  }
+                                  
+                                });
+
+                                  /* DIV QUE VAI AMOSTAR OS VIDEOS DAS MUSICAS AO CLICAR COM O IFRAME */
+                                let albums_direita = $('<div></div>').attr('class', 'albums_direita').html('direita');
+                                albums_outline_track.append(albums_direita);
+
 
 
                             });
