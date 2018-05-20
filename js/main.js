@@ -205,7 +205,7 @@ $(document).ready(function () {
                     let div_caixa_albums = $('<div></div>').attr('class', 'faixas_album');
                     $('.resultado-pesquisa').append(div_caixa_albums);
 
-                    let div_albums_name = $('<div></div>)').attr('class', 'albums_title').html('ALBUMS');
+                    let div_albums_name = $('<div></div>)').attr('class', 'albums_title').html('ALBUMS'+'<br>');
                     div_caixa_albums.append(div_albums_name);
 
                     var album_titles = 'http://musicbrainz.org/ws/2/release-group?artist=' + artist.id + '&fmt=json';
@@ -225,7 +225,7 @@ $(document).ready(function () {
 
                         for (let i = 0; i < response['release-groups'].length; i++) {
 
-                          let label_albums_name = $('<label></label>').attr('class', 'label_albums_name').html(response['release-groups'][i].title).click(album_description);
+                          let label_albums_name = $('<label></label>').attr('class', 'label_albums_name').html(response['release-groups'][i].title +'<br>').click(album_description);
                           div_albums_name.append(label_albums_name);
 
 
@@ -251,7 +251,7 @@ $(document).ready(function () {
 
                           }
 
-                          
+
                         }
 
 
