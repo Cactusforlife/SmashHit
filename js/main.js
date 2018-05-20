@@ -307,38 +307,42 @@ $(document).ready(function () {
                                 let albums_esquerda = $('<div></div>').attr('class', 'albums_esquerda');
                                 albums_outline_track.append(albums_esquerda);
 
+                                
+
                                 for (let i = 0; i < response.recordings.length; i++) {
 
-                                  let label_album_esquerda = $('<label></label>').html(response.recordings[i].title + '<br>').click(youtube_video(response.recordings[i].title));
+                                  let label_album_esquerda = $('<label></label>').html(response.recordings[i].title + '<br>').click(function(){youtube_video(response.recordings[i].title,response.recordings[i]['artist-credit'][0].artist.name)});
                                   albums_esquerda.append(label_album_esquerda);
 
                                 }
 
                                 /* DIV QUE VAI AMOSTAR OS VIDEOS DAS MUSICAS AO CLICAR COM O IFRAME */
-                                let albums_direita = $('<div></div>').attr('class', 'albums_direita').html('direita');
+                                let albums_direita = $('<div></div>').attr('class', 'albums_direita');
                                 albums_outline_track.append(albums_direita);
 
-                                function youtube_video(title) {
+                                function youtube_video(title,artist) {
 
-                                    const youtubeAPIKey = "AIzaSyAvt_YeiVfbMrGKdNFaMuMo760ViQemm0k";
+                                  $('.albums_direita').empty();
 
-                                    const query = title;
+                                  const youtubeAPIKey = "AIzaSyAvt_YeiVfbMrGKdNFaMuMo760ViQemm0k&origin=*";
 
-                                    console.log(query);
+                                  const query = artist +' '+ title;
 
-                                    let url = "https://www.googleapis.com/youtube/v3/search?q=" + query + "&maxResults=5&part=snippet&key=" + youtubeAPIKey;
+                                  console.log(query);
 
-                                    url = encodeURI(url); //codificar os caracteres especiais
+                                  let url = "https://www.googleapis.com/youtube/v3/search?q=" + query + "&maxResults=5&part=snippet&key=" + youtubeAPIKey;
 
-                                    console.log(url);
+                                  url = encodeURI(url); //codificar os caracteres especiais
 
-                                    $.get(url, function (response) {
+                                  console.log(url);
 
-                                      let iframe = $('<iframe></iframe>');
-                                      iframe.attr('src', 'https://www.youtube.com/embed/' + response.items[0].id.videoId);
-                                      albums_direita.append(iframe);
-                                      
-                                    });
+                                  $.get(url, function (response) {
+
+                                    let iframe = $('<iframe></iframe>');
+                                    iframe.attr('src', 'https://www.youtube.com/embed/' + response.items[0].id.videoId);
+                                    albums_direita.append(iframe);
+
+                                  });
 
                                 };
 
