@@ -149,31 +149,28 @@ $(document).ready(function () {
 
                       console.log(response.query.pages[0].extract);
                       console.log(response.query.pages[0].missing);
-                      
-                      
+
+
 
                       //falta fazer a condição se não tiver
-                      if (response.query.pages[0].extract ==  "<p><b>" + response.query.pages[0].title + "</b> may refer to:</p>\n\n" || response.query.pages[0].extract ==  "<p><b>" + response.query.pages[0].title + "</b> may refer to:</p>"){
+                      if (response.query.pages[0].extract == "<p><b>" + response.query.pages[0].title + "</b> may refer to:</p>\n\n" || response.query.pages[0].extract == "<p><b>" + response.query.pages[0].title + "</b> may refer to:</p>") {
 
-                             var label_caixa_wiki = $('<label></label>').attr('class', 'wiki_label').html('Infelizmente não se encontra informação sobre o artista');
-                             div_resumo_artist.append(label_caixa_wiki);
+                        var label_caixa_wiki = $('<label></label>').attr('class', 'wiki_label').html('Infelizmente não se encontra informação sobre o artista');
+                        div_resumo_artist.append(label_caixa_wiki);
 
-                      }
-                      else if(response.query.pages[0].missing == true) {
+                      } else if (response.query.pages[0].missing == true) {
 
-                            var label_caixa_wiki = $('<label></label>').attr('class', 'wiki_label').html('Infelizmente não se encontra informação sobre o artista');
-                            div_resumo_artist.append(label_caixa_wiki);
+                        var label_caixa_wiki = $('<label></label>').attr('class', 'wiki_label').html('Infelizmente não se encontra informação sobre o artista');
+                        div_resumo_artist.append(label_caixa_wiki);
 
-                      }
+                      } else {
 
-                      else {
-
-                          var label_caixa_wiki = $('<label></label>').attr('class', 'wiki_label').html(response.query.pages[0].extract);
-                          div_resumo_artist.append(label_caixa_wiki);
+                        var label_caixa_wiki = $('<label></label>').attr('class', 'wiki_label').html(response.query.pages[0].extract);
+                        div_resumo_artist.append(label_caixa_wiki);
 
                       }
 
-                      
+
 
                     });
 
@@ -181,7 +178,7 @@ $(document).ready(function () {
 
                     var resultados_image = 'http://en.wikipedia.org/w/api.php?action=query&formatversion=2&titles=' + response.name + '&prop=pageimages&pithumbsize=200&format=json&origin=*';
                     var resultados_image = encodeURI(resultados_image);
-                    
+
 
 
                     $.get(resultados_image, function (response, status) {
@@ -206,7 +203,7 @@ $(document).ready(function () {
 
                     });
 
-                    //mostra todos os albums do artista
+                    //mostra todos os albums do artista / banda
 
                     let div_caixa_albums = $('<div></div>').attr('class', 'faixas_album');
                     $('.resultado-pesquisa').append(div_caixa_albums);
@@ -214,24 +211,58 @@ $(document).ready(function () {
                     let div_albums_name = $('<div></div>)').attr('class', 'albums_title').html('ALBUMS'+'<br>');
                     div_caixa_albums.append(div_albums_name);
 
-                    if (response.releases == ""){
+                    var album_titles = 'http://musicbrainz.org/ws/2/release-group?artist=' + artist.id + '&fmt=json';
+                    var album_titles = encodeURI(album_titles);
 
-                      let label_albums_name = $('<label></label>').attr('class', 'label_albums_name').html('Não existe albums para este artista');
-                      div_albums_name.append(label_albums_name);
-                      
-                    }
+                    $.get(album_titles, function (response, status) {
 
-                    else{
 
-                       for (let i = 0; i < response.releases.length; i++) {
+                      console.log(album_titles);
 
-                         let label_albums_name = $('<label></label>').attr('class', 'label_albums_name').html(response.releases[i].title+'<br>');
-                         div_albums_name.append(label_albums_name);
+                      if (response['release-groups'] == "") {
 
-                       }
+                        let label_albums_name = $('<label></label>').attr('class', 'label_albums_name').html('Não existe albums para este artista');
+                        div_albums_name.append(label_albums_name);
 
-                    }
-                      
+                      } else {
+
+                        for (let i = 0; i < response['release-groups'].length; i++) {
+
+                          let label_albums_name = $('<label></label>').attr('class', 'label_albums_name').html(response['release-groups'][i].title +'<br>').click(album_description);
+                          div_albums_name.append(label_albums_name);
+
+
+                          function album_description() {
+
+                            $('.resultado-pesquisa').empty();
+                              
+                            var album_link = 'http://musicbrainz.org/ws/2/release-group/?query=reid:' + response.releases[i].id + '&fmt=json';
+                            var album_link = encodeURI(album_link);
+
+                            console.log(album_link);
+
+                            $.get(album_link, function (response, status) {
+
+
+                              
+
+
+                            });
+
+
+
+
+                          }
+
+                          
+                        }
+
+
+
+
+                      }
+                    });
+
                   });
 
 
@@ -421,14 +452,13 @@ $(document).ready(function () {
                   $('.resultados').hide();
                   $('.resultado-pesquisa').show();
 
-
-                  var v_album = 'http://musicbrainz.org/ws/2/release-group?artist=' + album.id + '&fmt=json';
+                  var v_album = '' + album.id + '';
                   var v_album = encodeURI(v_album);
                   console.log(v_album);
 
                   $.get(v_album, function (response, status) {
                 
-                    let band_artist = $('<div></div>').attr('class', 'band-artist').html('xDDD');                     
+                    let band_artist = $('<div></div>').attr('class', 'band-artist').html('xD'+album.title);                     
                     $('.resultado-pesquisa').append(band_artist);  
 
                   });
