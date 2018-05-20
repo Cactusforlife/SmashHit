@@ -8,9 +8,7 @@
 }
 
 *{
-   /* font-family: coolvetica;*/
-    font-family: "Lucida Sans", sans-serif;
-    
+   font-family: coolvetica; 
 }
 
 .logo {    
@@ -110,20 +108,74 @@ body {
 
 }
 
-
 .resultado-pesquisa {
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-top: 2%;   
+}
+
+.boss_artista {
     display: grid;
     grid-template-areas:
     'namebox namebox namebox'
-		'realname realname realname'	
+    'realname realname realname'	
     'wikip wikip img'
-		'track track track';	
+    'track track track';	
     grid-gap: 10px;
     padding: 10px;
-    margin-top: 2%;
-	  margin-left: 15%;
-	  margin-right: 15%;        
+     
 }
+
+
+.filho_albums {
+    display: grid;
+    grid-template-areas:
+    'nomealbum  im'
+    'albm im';    
+    grid-gap: 10px;
+    text-align: center;
+}
+
+.albums_outline {
+    
+    display: grid;
+    grid-template-areas: 'lft rgh';
+    padding: 10px;
+    grid-area: albm;
+}
+
+.albums_esquerda{
+    grid-area: lft;
+    background-color: green;
+}
+.albums_esquerda  > label{
+   
+}
+
+.albums_direita {
+    grid-area: rgh;
+    background-color: bisque;
+}
+
+.band-artist {
+    grid-area: nomealbum;        
+}
+
+.img_album {
+    grid-area: im;
+}
+
+.img_album > img {
+    border-radius: 8px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+
+.wiki_label {
+    text-align: justify;
+}
+
 
 .artist_namebox {
     grid-area: namebox;        
@@ -157,10 +209,8 @@ body {
 }
 
 .label_albums_name {    
-	font-size: 14px;
+	font-size: 16px;
 	color: black;    
 }
 
-.wiki_label {
-    text-align: justify;
-}
+
