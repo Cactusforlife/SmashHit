@@ -423,26 +423,13 @@ $(document).ready(function () {
 
 
                   var v_album = 'http://musicbrainz.org/ws/2/release-group?artist=' + album.id + '&fmt=json';
-                  var v_album = encodeURI(v_album); 
+                  var v_album = encodeURI(v_album);
                   console.log(v_album);
 
                   $.get(v_album, function (response, status) {
-
-
-                    let div_band_artist = $('<div></div>').attr('class', 'band-artist').html('xDDD'); 
-                    div_release.append(div_band_artist);
-                      
-                    $('.resultado-pesquisa').append(div_release);  
-
-
-                    let label_caixa_artist = $('<label></label>').attr('class', 'artist_namebox_label').html(response.name);
-                    div_caixa_artist.append(label_caixa_artist);
-
-                    let div_caixa_real_artist = $('<div></div>').attr('class', 'artist_namebox_real');
-                    $('.resultado-pesquisa').append(div_caixa_real_artist);
-
-                    let label_caixa_realname = $('<label></label>').attr('class', 'artist_realname_label').html(response.disambiguation);
-                    div_caixa_real_artist.append(label_caixa_realname);
+                
+                    let band_artist = $('<div></div>').attr('class', 'band-artist').html('xDDD');                     
+                    $('.resultado-pesquisa').append(band_artist);  
 
                   });
                 }
