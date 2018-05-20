@@ -105,6 +105,9 @@ $(document).ready(function () {
 
 
                 //  Dar hide do conteudo da pagina e mostrar a nova "pagina" com detalhes do artista e os seus albuns
+                 /* ****************************
+                 *** RESULTADO  DO ARTISTA *****
+                 *******************************/ 
 
                 function resultados_artista() {
 
@@ -232,7 +235,7 @@ $(document).ready(function () {
                           function album_description() {
 
                             $('.resultado-pesquisa').empty();
-
+                              
                             var album_link = 'http://musicbrainz.org/ws/2/release-group/?query=reid:' + response.releases[i].id + '&fmt=json';
                             var album_link = encodeURI(album_link);
 
@@ -286,11 +289,11 @@ $(document).ready(function () {
 
             for (let music of response.recordings) {
 
-              //div que contem toda a informação de um artista
+              //DIV QUE VAI TER OS RESULTADOS DAS MUSICAS
               let div_music = $('<div></div>').attr('class', 'default');
               $('.resultados').append(div_music);
 
-              //div da imagem do artista
+              //CAPA DA MUSICA
 
               var cover_music = "http://coverartarchive.org/release/" + music.releases[0].id;
               var cover_music = encodeURI(cover_music);
@@ -372,13 +375,13 @@ $(document).ready(function () {
 
             for (let album of response.releases) {
 
-              //div que contem toda a informação de um artista
-              let div_release = $('<div></div>').attr('class', 'default');
+              //DIV QUE VAI TER OS RESULTADOS DOS ALBUMS CORPO
+              let div_release = $('<div></div>').attr('class', 'default').click(resultados_albums);
 
               $('.resultados').append(div_release);
 
-              //div da imagem do artista
-
+              //DIV DO DA CAPA DO ALBUM
+                
               var cover = "http://coverartarchive.org/release/" + album.id;
               var cover = encodeURI(cover);
 
@@ -442,8 +445,24 @@ $(document).ready(function () {
               let label_score = $('<label></label>').attr('for', 'score').html('Score: ' + album.score);
 
               div_score.append(label_score);
+                
+             
+                function resultados_albums() {
 
+                  $('.resultados').hide();
+                  $('.resultado-pesquisa').show();
 
+                  var v_album = '' + album.id + '';
+                  var v_album = encodeURI(v_album);
+                  console.log(v_album);
+
+                  $.get(v_album, function (response, status) {
+                
+                    let band_artist = $('<div></div>').attr('class', 'band-artist').html('xD'+album.title);                     
+                    $('.resultado-pesquisa').append(band_artist);  
+
+                  });
+                }
 
             }
           }
