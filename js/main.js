@@ -339,7 +339,7 @@ $(document).ready(function () {
                                   $.get(url, function (response) {
 
                                     let iframe = $('<iframe></iframe>');
-                                    iframe.attr('src', 'https://www.youtube.com/embed/' + response.items[0].id.videoId);
+                                    iframe.attr('src', 'https://www.youtube.com/watch?v=' + response.items[0].id.videoId);
                                     albums_direita.append(iframe);
 
                                   });
