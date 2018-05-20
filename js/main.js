@@ -105,6 +105,9 @@ $(document).ready(function () {
 
 
                 //  Dar hide do conteudo da pagina e mostrar a nova "pagina" com detalhes do artista e os seus albuns
+                 /* ****************************
+                 *** RESULTADO  DO ARTISTA *****
+                 *******************************/ 
 
                 function resultados_artista() {
 
@@ -208,7 +211,7 @@ $(document).ready(function () {
                     let div_caixa_albums = $('<div></div>').attr('class', 'faixas_album');
                     $('.resultado-pesquisa').append(div_caixa_albums);
 
-                    let div_albums_name = $('<div></div>)').attr('class', 'albums_title').html('ALBUMS');
+                    let div_albums_name = $('<div></div>)').attr('class', 'albums_title').html('ALBUMS'+'<br>');
                     div_caixa_albums.append(div_albums_name);
 
                     if (response.releases == ""){
@@ -222,7 +225,7 @@ $(document).ready(function () {
 
                        for (let i = 0; i < response.releases.length; i++) {
 
-                         let label_albums_name = $('<label></label>').attr('class', 'label_albums_name').html(response.releases[i].title);
+                         let label_albums_name = $('<label></label>').attr('class', 'label_albums_name').html(response.releases[i].title+'<br>');
                          div_albums_name.append(label_albums_name);
 
                        }
@@ -255,11 +258,11 @@ $(document).ready(function () {
 
             for (let music of response.recordings) {
 
-              //div que contem toda a informação de um artista
+              //DIV QUE VAI TER OS RESULTADOS DAS MUSICAS
               let div_music = $('<div></div>').attr('class', 'default');
               $('.resultados').append(div_music);
 
-              //div da imagem do artista
+              //CAPA DA MUSICA
 
               var cover_music = "http://coverartarchive.org/release/" + music.releases[0].id;
               var cover_music = encodeURI(cover_music);
@@ -341,13 +344,13 @@ $(document).ready(function () {
 
             for (let album of response.releases) {
 
-              //div que contem toda a informação de um artista
-              let div_release = $('<div></div>').attr('class', 'default');
+              //DIV QUE VAI TER OS RESULTADOS DOS ALBUMS CORPO
+              let div_release = $('<div></div>').attr('class', 'default').click(resultados_albums);
 
               $('.resultados').append(div_release);
 
-              //div da imagem do artista
-
+              //DIV DO DA CAPA DO ALBUM
+                
               var cover = "http://coverartarchive.org/release/" + album.id;
               var cover = encodeURI(cover);
 
@@ -411,8 +414,38 @@ $(document).ready(function () {
               let label_score = $('<label></label>').attr('for', 'score').html('Score: ' + album.score);
 
               div_score.append(label_score);
+                
+             
+                function resultados_albums() {
+
+                  $('.resultados').hide();
+                  $('.resultado-pesquisa').show();
 
 
+                  var v_album = 'http://musicbrainz.org/ws/2/release-group?artist=' + album.id + '&fmt=json';
+                  var v_album = encodeURI(v_album); 
+                  console.log(v_album);
+
+                  $.get(v_album, function (response, status) {
+
+
+                    let div_band_artist = $('<div></div>').attr('class', 'band-artist').html('xDDD'); 
+                    div_release.append(div_band_artist);
+                      
+                    $('.resultado-pesquisa').append(div_release);  
+
+
+                    let label_caixa_artist = $('<label></label>').attr('class', 'artist_namebox_label').html(response.name);
+                    div_caixa_artist.append(label_caixa_artist);
+
+                    let div_caixa_real_artist = $('<div></div>').attr('class', 'artist_namebox_real');
+                    $('.resultado-pesquisa').append(div_caixa_real_artist);
+
+                    let label_caixa_realname = $('<label></label>').attr('class', 'artist_realname_label').html(response.disambiguation);
+                    div_caixa_real_artist.append(label_caixa_realname);
+
+                  });
+                }
 
             }
           }
