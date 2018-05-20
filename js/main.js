@@ -151,8 +151,6 @@ $(document).ready(function () {
                       console.log(response.query.pages[0].missing);
 
 
-
-                      //falta fazer a condição se não tiver
                       if (response.query.pages[0].extract == "<p><b>" + response.query.pages[0].title + "</b> may refer to:</p>\n\n" || response.query.pages[0].extract == "<p><b>" + response.query.pages[0].title + "</b> may refer to:</p>") {
 
                         var label_caixa_wiki = $('<label></label>').attr('class', 'wiki_label').html('Infelizmente não se encontra informação sobre o artista');
@@ -452,13 +450,14 @@ $(document).ready(function () {
                   $('.resultados').hide();
                   $('.resultado-pesquisa').show();
 
-                  var v_album = '' + album.id + '';
+                  var v_album = 'http://musicbrainz.org/ws/2/release/?query=reid:'+ album.id +'&fmt=json';
                   var v_album = encodeURI(v_album);
+
                   console.log(v_album);
 
                   $.get(v_album, function (response, status) {
                 
-                    let band_artist = $('<div></div>').attr('class', 'band-artist').html('xD'+album.title);                     
+                    let band_artist = $('<div></div>').attr('class', 'band-artist').html(response.releases[0].title);                     
                     $('.resultado-pesquisa').append(band_artist);  
 
                   });
