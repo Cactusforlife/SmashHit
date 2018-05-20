@@ -129,13 +129,19 @@ $(document).ready(function () {
                     let label_caixa_artist = $('<label></label>').attr('class', 'artist_namebox_label').html(response.name);
                     div_caixa_artist.append(label_caixa_artist);
 
-                    let div_caixa_real_artist = $('<div></div>').attr('class', 'artist_namebox_real');
-                    $('.resultado-pesquisa').append(div_caixa_real_artist);
+                    console.log(response.disambiguation);
 
-                    let label_caixa_realname = $('<label></label>').attr('class', 'artist_realname_label').html(response.disambiguation);
-                    div_caixa_real_artist.append(label_caixa_realname);
-
+                    
+                    if (response.disambiguation == ""){
+                        $('.artist_namebox_real').hide();
+                    }else{
+                        let div_caixa_real_artist = $('<div></div>').attr('class', 'artist_namebox_real');
+                        $('.resultado-pesquisa').append(div_caixa_real_artist);
+                        let label_caixa_realname = $('<label></label>').attr('class', 'artist_realname_label').html(response.disambiguation);
+                        div_caixa_real_artist.append(label_caixa_realname);                        
+                    }
                     //Vai buscar a Bio do artista a partir da wikipedia API
+                      
 
                     let div_resumo_artist = $('<div></div>').attr('class', 'caixa_wiki');
                     $('.resultado-pesquisa').append(div_resumo_artist);
@@ -456,9 +462,25 @@ $(document).ready(function () {
                   console.log(v_album);
 
                   $.get(v_album, function (response, status) {
-                
+                    
+                      /* Band_artist É ONDE FICA O NOME DO ALBUM EM QUESTAO*/
                     let band_artist = $('<div></div>').attr('class', 'band-artist').html(response.releases[0].title);                     
                     $('.resultado-pesquisa').append(band_artist);  
+                    
+                    let img_album = $('<div></div>').attr('class', 'img_ablum').html('eskdekdede');
+                    $('.resultado-pesquisa').append(img_album);  
+                   
+                    /* DIV PRINCIPAL QUE VAI TER DOIS DIVS, ESQUERDA= TRACKS DIREITA = IFRAME DO VIDEO DA MUSICA DO YOUTUBE */  
+                    let albums_outline_track = $('<div></div>').attr('class', 'albums_outline');
+                    $('.resultado-pesquisa').append(albums_outline_track);
+                    
+                      /* CAIXA QUE VAI AMOSTRAR AS MUSICAS DO ALBUM COM UM CICLO */
+                      let albums_esquerda = $('<div></div>').attr('class','albums_esquerda').html('esquerda');
+                      albums_outline_track.append(albums_esquerda);
+                      
+                      /* DIV QUE VAI AMOSTAR OS VIDEOS DAS MUSICAS AO CLICAR COM O IFRAME */
+                      let albums_direita = $('<div></div>').attr('class','albums_direita').html('direita');
+                      albums_outline_track.append(albums_direita);
 
                   });
                 }
