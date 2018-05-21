@@ -960,20 +960,20 @@ $(document).ready(function () {
 
                   console.log(cover_music);
 
-                  var div_caixa_img = $('<div></div>').attr('class', 'caixa_img');
+                  var div_caixa_img = $('<div></div>').attr('class', 'caixa_img_artist');
                   nome_album.append(div_caixa_img);
 
                   $.get(cover_music, function (response, status) {
 
 
-                    var div_art_img = $('<img></img>').attr('class', 'art_img').attr('src', response.images[0].thumbnails.small);
+                    var div_art_img = $('<img></img>').attr('class', 'caixa_img_box').attr('src', response.images[0].thumbnails.small);
                     div_caixa_img.prepend(div_art_img);
 
 
                   }).fail(function () {
 
 
-                    let div_art_img = $('<img></img>').attr('class', 'art_img').attr('src', 'img/nosrc.png');
+                    let div_art_img = $('<img></img>').attr('class', 'caixa_img_box').attr('src', 'img/nosrc.png');
                     div_caixa_img.prepend(div_art_img);
 
                   });
