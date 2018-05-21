@@ -147,10 +147,10 @@ body {
 .albums_esquerda{
     grid-area: lft;
     overflow: auto;
-    max-height: 250px;
+    max-height: 288px;
 }
 .albums_esquerda  > div{
-   margin-top: 20px;
+   margin-top: 26px;
     text-align: center;
 }
 
@@ -171,9 +171,9 @@ body {
         
 }
 
-.band-artist-albums {
+.band-artist-album {
     grid-area: bnd;
-    
+    padding-bottom: 8px;
 }
 
 
@@ -237,4 +237,93 @@ body {
 }
 
 
+/* ************************************************************************
+   ********** CSS PARA O CLICK DA PESQUISA DAS MUSICAS ********************
+   ************************************************************************
+*/
+
+
+
+.boss_musicas {
+ 
+     
+}
+
+
+.filho_musicas {
+    display: grid;
+    grid-template-areas:
+    'arte arte'
+    'alet alet'
+    'vido vido';    
+    grid-gap: 10px;
+   text-align: center;
+    min-height: 500px;
+}
+
+.albums_outline {
+    
+    display: grid;
+    grid-template-areas: 'lft im''rgh rgh';
+    padding: 10px;
+    grid-area: albm;
+}
+
+.albums_esquerda{
+    grid-area: lft;
+    overflow: auto;
+    max-height: 288px;
+}
+.albums_esquerda  > div{
+   margin-top: 26px;
+    text-align: center;
+}
+
+.music_video > iframe{
+    width: 100%;
+    height: 100%;
+    margin-bottom: 2%;
+}
+
+
+.albums_direita {
+    grid-area: rgh;
+    margin-top: 5%;
+    min-height: 700px;
+}
+
+.band-artist-album {
+    grid-area: bnd;
+    padding-bottom: 8px;
+}
+
+
+.img_album {
+    text-align: center;
+    grid-area: im;
+}
+
+.img_album > img {   
+    max-width: 400px;
+    max-height: 350px;
+    border-radius: 8px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.nome_band {
+    
+}
+
+.nome_artista {
+    grid-area: arte;
+}
+
+.nome_album {
+    grid-area: alet;
+}
+
+.music_video {
+    grid-area: vido;
+    min-height: 200%;
+}
 
