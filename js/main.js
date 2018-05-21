@@ -261,8 +261,9 @@ $(document).ready(function () {
                             $.get(album_link, function (response, status) {
 
                               /* Band_artist É ONDE FICA O NOME DO ALBUM EM QUESTAO*/
-                              let band_artist = $('<div></div>').attr('class', 'band-artist-album').html(response['release-groups'][0].title);
-                              filho_albums.append(band_artist);
+                             
+                              let albums_outline_track = $('<div></div>').attr('class', 'albums_outline');
+                              filho_albums.append(albums_outline_track);
 
 
                               //DIV onde vai ter a imagem do album
@@ -271,30 +272,31 @@ $(document).ready(function () {
                               var cover_music = encodeURI(cover_music);
 
                               console.log(cover_music);
-
-                              $.get(cover_music, function (response, status) {
-
+                                
                                 let div_img_album = $('<div></div>').attr('class', 'img_album');
                                 albums_outline_track.append(div_img_album);
 
+
+                              $.get(cover_music, function (response, status) {
+
+                            
                                 let img_album = $('<img></img>').attr('src', response.images[0].thumbnails.small);
                                 div_img_album.append(img_album);
 
                               }).fail(function () {
 
-                                let div_img_album = $('<div></div>').attr('class', 'img_ablum');
-                                albums_outline_track.append(div_img_album);
 
                                 let img_album = $('<img></img>').attr('src', 'img/nosrc.png');
                                 div_img_album.append(img_album);
 
 
                               });
+                                
+                                let band_artist = $('<div></div>').attr('class', 'band-artist-album').html(response['release-groups'][0].title);
+                              div_img_album.append(band_artist);
 
                               /* DIV PRINCIPAL QUE VAI TER DOIS DIVS, ESQUERDA= TRACKS DIREITA = IFRAME DO VIDEO DA MUSICA DO YOUTUBE */
-                              let albums_outline_track = $('<div></div>').attr('class', 'albums_outline');
-                              filho_albums.append(albums_outline_track);
-
+                              
 
                               var musica_album_link = 'http://musicbrainz.org/ws/2/recording/?query=rgid:' + response['release-groups'][0].id + '&fmt=json';
                               var musica_album_link = encodeURI(musica_album_link)
