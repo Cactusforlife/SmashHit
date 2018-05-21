@@ -130,15 +130,17 @@ body {
 .filho_albums {
     display: grid;
     grid-template-areas:
-    'nomealbum  im'
+    'nomealbum nomealbum'
+    'albm im'
     'albm im';    
     grid-gap: 10px;
     text-align: center;
+    min-height: 500px;
 }
 
 .albums_outline {
     
-    display: grid;
+    /*! display: grid; */
     grid-template-areas: 'lft rgh';
     padding: 10px;
     grid-area: albm;
@@ -146,7 +148,7 @@ body {
 
 .albums_esquerda{
     grid-area: lft;
-    background-color: green;
+
 }
 .albums_esquerda  > label{
    
@@ -154,7 +156,7 @@ body {
 
 .albums_direita {
     grid-area: rgh;
-    background-color: bisque;
+    
 }
 
 .band-artist {
@@ -165,7 +167,9 @@ body {
     grid-area: im;
 }
 
-.img_album > img {
+.img_album > img {    
+    max-width: 200px;
+    max-height: 150px;
     border-radius: 8px;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -200,7 +204,7 @@ body {
 .caixa_img_box {  
 	max-width: 300px;
 	border-radius: 8px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .albums_title {    
@@ -213,4 +217,9 @@ body {
 	color: black;    
 }
 
+
+.iframe{
+    width: 100%;
+    height: 100%;
+}
 
