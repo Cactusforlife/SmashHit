@@ -258,7 +258,6 @@ body {
     'vido vido';    
     grid-gap: 10px;
    text-align: center;
-    min-height: 500px;
 }
 
 .albums_outline {
@@ -324,6 +323,7 @@ body {
 
 .music_video {
     grid-area: vido;
-    min-height: 200%;
+    
+    min-height: 400%;
 }
 
