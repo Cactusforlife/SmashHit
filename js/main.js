@@ -495,20 +495,87 @@ $(document).ready(function () {
                   let boss_musicas = $('<div></div>').attr('class', 'boss_musicas');
                   $('.resultado-pesquisa').append(boss_musicas);
 
+                  //Titulo da musica
+
+                  let music_artist = $('<div></div>').attr('class', 'music_artist').html(response.recordings[0].title);
+                  boss_musicas.append(music_artist);
+
                   /* FILHO BOSS */
 
                   let filho_musicas = $('<div></div>').attr('class', 'filho_musicas');
                   boss_musicas.append(filho_musicas);
 
+                  
+
+                  console.log(music_artist);
+
                   // Nome da banda / artista
 
-                  let nome_artista = $('<div></div>').attr('class', 'nome_artista').html(response.recordings[0]['artist-credit'][0].artist.name + ' ' + response.recordings[0].title);
+                  let nome_artista = $('<div></div>').attr('class', 'nome_artista').html(response.recordings[0]['artist-credit'][0].artist.name);
                   filho_musicas.append(nome_artista);
 
-                  //Nome do album + nome da musica
+
+
+                   //imagem do artista / banda
+                  var resultados_image = 'http://en.wikipedia.org/w/api.php?action=query&formatversion=2&titles=' + response.recordings[0]['artist-credit'][0].artist.name + '&prop=pageimages&pithumbsize=200&format=json&origin=*';
+                  var resultados_image = encodeURI(resultados_image);
+
+
+
+                  $.get(resultados_image, function (response, status) {
+
+                    var div_img_artist = $('<div></div>').attr('class', 'caixa_img_artist');
+                    nome_artista.append(div_img_artist);
+
+                    if (response.query.pages[0].thumbnail) {
+
+                      var div_img_box = $('<img></img>').attr('class', 'caixa_img_box').attr('src', response.query.pages[0].thumbnail.source);
+                      div_img_artist.append(div_img_box);
+
+                    } else {
+
+                      var div_img_box = $('<img></img>').attr('class', 'caixa_img_box').attr('src', 'img/nosrc.png');
+                      div_img_artist.append(div_img_box);
+
+
+                    }
+
+                  });
+
+
+
+              
+                   
+                  //Nome do album
 
                   let nome_album = $('<div></div>').attr('class', 'nome_album').html('Album: ' + response.recordings[0].releases[0].title);
                   filho_musicas.append(nome_album);
+
+
+                  //CAPA DA MUSICA
+
+                  var cover_music = "http://coverartarchive.org/release/" + response.recordings[0].releases[0].id;
+                  var cover_music = encodeURI(cover_music);
+
+                  console.log(cover_music);
+
+                  var div_caixa_img = $('<div></div>').attr('class', 'caixa_img');
+                  nome_album.append(div_caixa_img);
+
+                  $.get(cover_music, function (response, status) {
+
+
+                    var div_art_img = $('<img></img>').attr('class', 'art_img').attr('src', response.images[0].thumbnails.small);
+                    div_caixa_img.prepend(div_art_img);
+
+
+                  }).fail(function () {
+
+
+                    let div_art_img = $('<img></img>').attr('class', 'art_img').attr('src', 'img/nosrc.png');
+                    div_caixa_img.prepend(div_art_img);
+
+                  });
 
                   //criação do video do youtube da musica
 
