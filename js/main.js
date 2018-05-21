@@ -307,11 +307,13 @@ $(document).ready(function () {
                                 let albums_esquerda = $('<div></div>').attr('class', 'albums_esquerda');
                                 albums_outline_track.append(albums_esquerda);
 
-                                
+
 
                                 for (let i = 0; i < response.recordings.length; i++) {
 
-                                  let label_album_esquerda = $('<label></label>').html(response.recordings[i].title + '<br>').click(function(){youtube_video(response.recordings[i].title,response.recordings[i]['artist-credit'][0].artist.name)});
+                                  let label_album_esquerda = $('<label></label>').html(response.recordings[i].title + '<br>').click(function () {
+                                    youtube_video(response.recordings[i].title, response.recordings[i]['artist-credit'][0].artist.name)
+                                  });
                                   albums_esquerda.append(label_album_esquerda);
 
                                 }
@@ -320,17 +322,17 @@ $(document).ready(function () {
                                 let albums_direita = $('<div></div>').attr('class', 'albums_direita');
                                 albums_outline_track.append(albums_direita);
 
-                                function youtube_video(title,artist) {
+                                function youtube_video(title, artist) {
 
                                   $('.albums_direita').empty();
 
                                   const youtubeAPIKey = "AIzaSyAvt_YeiVfbMrGKdNFaMuMo760ViQemm0k&origin=*";
 
-                                  const query = artist +' '+ title;
+                                  const query = artist + ' ' + title;
 
                                   console.log(query);
 
-                                  let url = "https://www.googleapis.com/youtube/v3/search?q=" + query + "&maxResults=5&part=snippet&key=" + youtubeAPIKey;
+                                  let url = "https://www.googleapis.com/youtube/v3/search?q=" + query + "&part=snippet&key=" + youtubeAPIKey;
 
                                   url = encodeURI(url); //codificar os caracteres especiais
 
@@ -465,48 +467,68 @@ $(document).ready(function () {
               /**********************************
                *** RESULTADO  DAS  MUSICAS  *****
                **********************************/
-                
-                  function resultados_musicas() {
 
-                  $('.resultados').hide();
-                  $('.resultado-pesquisa').show();
-                  $('.filho_albums').hide();
-                  
+              function resultados_musicas() {
+
+                $('.resultados').hide();
+                $('.resultado-pesquisa').show();
+                $('.filho_albums').hide();
+
 
                 /* VARIAVEL QUE RECEBE A QUERY DO MUSIC BRAINZ DA MUSICA */
-                 /* var v_music = '';
-                  var v_music = encodeURI(v_music);
-*/
-                  //$.get(v_music, function (response, status) {
+                var v_music = 'http://musicbrainz.org/ws/2/recording/?query=rid:' + music.id + '&fmt=json';
+                var v_music = encodeURI(v_music);
 
-                    console.log();
+                console.log(v_music);
 
-                    /* *BOSS* */
-                    let boss_musicas = $('<div></div>').attr('class', 'boss_musicas');
-                    $('.resultado-pesquisa').append(boss_musicas);
-                    /* FILHO BOSS */
-                    let filho_musicas = $('<div></div>').attr('class', 'filho_musicas');
-                    boss_musicas.append(filho_musicas);
+                $.get(v_music, function (response, status) {
 
-                    let nome_artista = $('<div></div>').attr('class', 'nome_artista').html('xDDDDDD');
-                    filho_musicas.append(nome_artista);
-                      
-                    let nome_album = $('<div></div>').attr('class', 'nome_album').html('xDDDDDD');
-                    filho_musicas.append(nome_album);
-                      
-                    let music_video = $('<div></div>').attr('class', 'music_video').html('xDDDDDD');
-                    filho_musicas.append(music_video);
-                      
-                    $.get(url, function (response) {
 
-                      let iframe = $('<iframe></iframe>');
-                      iframe.attr('src', 'https://www.youtube.com/embed/' + response.items[0].id.videoId);
-                      music_video.append(iframe);
+                  /* *BOSS* */
 
-                    })
+                  let boss_musicas = $('<div></div>').attr('class', 'boss_musicas');
+                  $('.resultado-pesquisa').append(boss_musicas);
 
-                //})
-               };
+                  /* FILHO BOSS */
+
+                  let filho_musicas = $('<div></div>').attr('class', 'filho_musicas');
+                  boss_musicas.append(filho_musicas);
+
+                  // Nome da banda / artista
+
+                  let nome_artista = $('<div></div>').attr('class', 'nome_artista').html(response.recordings[0]['artist-credit'][0].artist.name);
+                  filho_musicas.append(nome_artista);
+
+                  //Nome do album + nome da musica
+
+                  let nome_album = $('<div></div>').attr('class', 'nome_album').html('Album: ' + response.recordings[0].releases[0].title + '<br>' + 'Song: ' + response.recordings[0].title);
+                  filho_musicas.append(nome_album);
+
+                  //criação do video do youtube da musica
+
+                  let music_video = $('<div></div>').attr('class', 'music_video');
+                  filho_musicas.append(music_video);
+
+                  const youtubeAPIKey = "AIzaSyAvt_YeiVfbMrGKdNFaMuMo760ViQemm0k&origin=*";
+
+                  query = response.recordings[0]['artist-credit'][0].artist.name + ' ' + response.recordings[0].title;
+
+                  let url = "https://www.googleapis.com/youtube/v3/search?q=" + query + "&part=snippet&key=" + youtubeAPIKey;
+
+                  url = encodeURI(url); //codificar os caracteres especiais
+
+                  console.log(url);
+
+                  $.get(url, function (response) {
+
+                    let iframe = $('<iframe></iframe>');
+                    iframe.attr('src', 'https://www.youtube.com/embed/' + response.items[0].id.videoId);
+                    music_video.append(iframe);
+
+                  })
+
+                })
+              };
             }
           }
         });
@@ -656,7 +678,9 @@ $(document).ready(function () {
 
                     for (let i = 0; i < response.recordings.length; i++) {
 
-                      let label_album_esquerda = $('<label></label>').html(response.recordings[i].title + '<br>').click(function () { youtube_video(response.recordings[i].title, response.recordings[i]['artist-credit'][0].artist.name) });;
+                      let label_album_esquerda = $('<label></label>').html(response.recordings[i].title + '<br>').click(function () {
+                        youtube_video(response.recordings[i].title, response.recordings[i]['artist-credit'][0].artist.name)
+                      });
                       albums_esquerda.append(label_album_esquerda);
 
                     }
