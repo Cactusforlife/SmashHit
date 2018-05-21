@@ -261,7 +261,7 @@ $(document).ready(function () {
                             $.get(album_link, function (response, status) {
 
                               /* Band_artist É ONDE FICA O NOME DO ALBUM EM QUESTAO*/
-                              let band_artist = $('<div></div>').attr('class', 'band-artist').html(response['release-groups'][0].title);
+                              let band_artist = $('<div></div>').attr('class', 'band-artist-album').html(response['release-groups'][0].title);
                               filho_albums.append(band_artist);
 
 
@@ -275,7 +275,7 @@ $(document).ready(function () {
                               $.get(cover_music, function (response, status) {
 
                                 let div_img_album = $('<div></div>').attr('class', 'img_album');
-                                filho_albums.append(div_img_album);
+                                albums_outline_track.append(div_img_album);
 
                                 let img_album = $('<img></img>').attr('src', response.images[0].thumbnails.small);
                                 div_img_album.append(img_album);
@@ -283,7 +283,7 @@ $(document).ready(function () {
                               }).fail(function () {
 
                                 let div_img_album = $('<div></div>').attr('class', 'img_ablum');
-                                filho_albums.append(div_img_album);
+                                albums_outline_track.append(div_img_album);
 
                                 let img_album = $('<img></img>').attr('src', 'img/nosrc.png');
                                 div_img_album.append(img_album);
@@ -311,7 +311,7 @@ $(document).ready(function () {
 
                                 for (let i = 0; i < response.recordings.length; i++) {
 
-                                  let label_album_esquerda = $('<label></label>').html(response.recordings[i].title + '<br>').click(function () {
+                                  let label_album_esquerda = $('<div></div>').html(response.recordings[i].title + '<br>').click(function () {
                                     youtube_video(response.recordings[i].title, response.recordings[i]['artist-credit'][0].artist.name)
                                   });
                                   albums_esquerda.append(label_album_esquerda);
@@ -496,12 +496,12 @@ $(document).ready(function () {
 
                   // Nome da banda / artista
 
-                  let nome_artista = $('<div></div>').attr('class', 'nome_artista').html(response.recordings[0]['artist-credit'][0].artist.name);
+                  let nome_artista = $('<div></div>').attr('class', 'nome_artista').html(response.recordings[0]['artist-credit'][0].artist.name +' '+ response.recordings[0].title);
                   filho_musicas.append(nome_artista);
 
                   //Nome do album + nome da musica
 
-                  let nome_album = $('<div></div>').attr('class', 'nome_album').html('Album: ' + response.recordings[0].releases[0].title + '<br>' + 'Song: ' + response.recordings[0].title);
+                  let nome_album = $('<div></div>').attr('class', 'nome_album').html('Album: ' + response.recordings[0].releases[0].title);
                   filho_musicas.append(nome_album);
 
                   //criação do video do youtube da musica
@@ -634,8 +634,11 @@ $(document).ready(function () {
                 $.get(v_album, function (response, status) {
 
                   /* Band_artist É ONDE FICA O NOME DO ALBUM EM QUESTAO*/
-                  let band_artist = $('<div></div>').attr('class', 'band-artist').html(response.releases[0].title);
-                  $('.resultado-pesquisa').append(band_artist);
+                    
+                    let filho_albums = $('<div></div>').attr('class', 'filho_albums');
+                    $('.resultado-pesquisa').append(filho_albums);    
+
+                    
 
                   var cover_music = "http://coverartarchive.org/release/" + response.releases[0].id;
                   var cover_music = encodeURI(cover_music);
@@ -644,26 +647,35 @@ $(document).ready(function () {
 
                   $.get(cover_music, function (response, status) {
 
-                    let div_img_album = $('<div></div>').attr('class', 'img_ablum');
-                    $('.resultado-pesquisa').append(div_img_album);
+                            let div_img_album = $('<div></div>').attr('class', 'img_album');
+                            albums_outline_track.append(div_img_album);
 
-                    let img_album = $('<img></img>').attr('src', response.images[0].thumbnails.small);
-                    div_img_album.append(img_album);
+                            let image_album = $('<img></img>').attr('src', response.images[0].thumbnails.small);
+                            div_img_album.append(image_album);
 
-                  }).fail(function () {
+                        }).fail(function () {
 
-                    let div_img_album = $('<div></div>').attr('class', 'img_ablum');
-                    $('.resultado-pesquisa').append(div_img_album);
+                            let div_img_album = $('<div></div>').attr('class', 'img_ablum');
+                            albums_outline_track.append(div_img_album);
 
-                    let img_album = $('<img></img>').attr('src', 'img/nosrc.png');
-                    div_img_album.append(img_album);
+                            let image_album = $('<img></img>').attr('src', 'img/nosrc.png');
+                            div_img_album.append(image_album);
 
 
-                  });
+                         });
+                    
+                    console.log(response.releases[0].title);
+                    
+                
 
                   /* DIV PRINCIPAL QUE VAI TER DOIS DIVS, ESQUERDA= TRACKS DIREITA = IFRAME DO VIDEO DA MUSICA DO YOUTUBE */
                   let albums_outline_track = $('<div></div>').attr('class', 'albums_outline');
-                  $('.resultado-pesquisa').append(albums_outline_track);
+                  filho_albums.append(albums_outline_track);
+                    
+                        let nome_band = $('<div></div>').attr('class', 'nome_band').html(response.releases[0].title);
+                        albums_outline_track.append(nome_band);
+                
+                
 
                   var musica_album_link = 'http://musicbrainz.org/ws/2/recording/?query=reid :' + response.releases[0].id + '&fmt=json';
                   var musica_album_link = encodeURI(musica_album_link)
@@ -678,7 +690,7 @@ $(document).ready(function () {
 
                     for (let i = 0; i < response.recordings.length; i++) {
 
-                      let label_album_esquerda = $('<label></label>').html(response.recordings[i].title + '<br>').click(function () {
+                      let label_album_esquerda = $('<div></div>').html(response.recordings[i].title + '<br>').click(function () {
                         youtube_video(response.recordings[i].title, response.recordings[i]['artist-credit'][0].artist.name)
                       });
                       albums_esquerda.append(label_album_esquerda);
@@ -688,8 +700,8 @@ $(document).ready(function () {
                   });
 
                   /* DIV QUE VAI AMOSTAR OS VIDEOS DAS MUSICAS AO CLICAR COM O IFRAME */
-                  let albums_direita = $('<div></div>').attr('class', 'albums_direita').html('direita');
-                  albums_outline_track.append(albums_direita);
+                  let albums_direita = $('<div></div>').attr('class', 'albums_direita');
+                  filho_albums.append(albums_direita);
 
                   function youtube_video(title, artist) {
 
