@@ -620,7 +620,7 @@ $(document).ready(function () {
 
                     for (let i = 0; i < response.recordings.length; i++) {
 
-                      let label_album_esquerda = $('<label></label>').html(response.recordings[i].title + '<br>');
+                      let label_album_esquerda = $('<label></label>').html(response.recordings[i].title + '<br>').click(function () { youtube_video(response.recordings[i].title, response.recordings[i]['artist-credit'][0].artist.name) });;
                       albums_esquerda.append(label_album_esquerda);
 
                     }
@@ -630,6 +630,33 @@ $(document).ready(function () {
                   /* DIV QUE VAI AMOSTAR OS VIDEOS DAS MUSICAS AO CLICAR COM O IFRAME */
                   let albums_direita = $('<div></div>').attr('class', 'albums_direita').html('direita');
                   albums_outline_track.append(albums_direita);
+
+                  function youtube_video(title, artist) {
+
+                    $('.albums_direita').empty();
+
+                    const youtubeAPIKey = "AIzaSyAvt_YeiVfbMrGKdNFaMuMo760ViQemm0k&origin=*";
+
+                    const query = artist + ' ' + title;
+
+                    console.log(query);
+
+                    let url = "https://www.googleapis.com/youtube/v3/search?q=" + query + "&maxResults=5&part=snippet&key=" + youtubeAPIKey;
+
+                    url = encodeURI(url); //codificar os caracteres especiais
+
+                    console.log(url);
+
+                    $.get(url, function (response) {
+
+                      let iframe = $('<iframe></iframe>');
+                      iframe.attr('src', 'https://www.youtube.com/embed/' + response.items[0].id.videoId);
+                      albums_direita.append(iframe);
+
+                    });
+
+                  };
+
 
 
                 });
