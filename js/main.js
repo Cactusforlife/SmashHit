@@ -497,8 +497,6 @@ $(document).ready(function () {
 
                   //Titulo da musica
 
-                  let music_artist = $('<div></div>').attr('class', 'music_artist').html(response.recordings[0].title);
-                  boss_musicas.append(music_artist);
 
                   /* FILHO BOSS */
 
@@ -507,7 +505,6 @@ $(document).ready(function () {
 
                   
 
-                  console.log(music_artist);
 
                   // Nome da banda / artista
 
@@ -576,6 +573,10 @@ $(document).ready(function () {
                     div_caixa_img.prepend(div_art_img);
 
                   });
+                  
+
+                  let music_artist = $('<div></div>').attr('class', 'music_artist').html(response.recordings[0].title);
+                  nome_album.append(music_artist);
 
                   //criação do video do youtube da musica
 
