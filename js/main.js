@@ -399,7 +399,7 @@ $(document).ready(function () {
             for (let music of response.recordings) {
 
               //DIV QUE VAI TER OS RESULTADOS DAS MUSICAS
-              let div_music = $('<div></div>').attr('class', 'default');
+              let div_music = $('<div></div>').attr('class', 'default').click(resultados_musicas);
               $('.resultados').append(div_music);
 
               //CAPA DA MUSICA
@@ -465,15 +465,51 @@ $(document).ready(function () {
               /**********************************
                *** RESULTADO  DAS  MUSICAS  *****
                **********************************/
+                
+                  function resultados_musicas() {
 
+                  $('.resultados').hide();
+                  $('.resultado-pesquisa').show();
+                  $('.filho_albums').hide();
+                  
 
+                /* VARIAVEL QUE RECEBE A QUERY DO MUSIC BRAINZ DA MUSICA */
+                 /* var v_music = '';
+                  var v_music = encodeURI(v_music);
+*/
+                  //$.get(v_music, function (response, status) {
 
+                    console.log();
+
+                    /* *BOSS* */
+                    let boss_musicas = $('<div></div>').attr('class', 'boss_musicas');
+                    $('.resultado-pesquisa').append(boss_musicas);
+                    /* FILHO BOSS */
+                    let filho_musicas = $('<div></div>').attr('class', 'filho_musicas');
+                    boss_musicas.append(filho_musicas);
+
+                    let nome_artista = $('<div></div>').attr('class', 'nome_artista').html('xDDDDDD');
+                    filho_musicas.append(nome_artista);
+                      
+                    let nome_album = $('<div></div>').attr('class', 'nome_album').html('xDDDDDD');
+                    filho_musicas.append(nome_album);
+                      
+                    let music_video = $('<div></div>').attr('class', 'music_video').html('xDDDDDD');
+                    filho_musicas.append(music_video);
+                      
+                    $.get(url, function (response) {
+
+                      let iframe = $('<iframe></iframe>');
+                      iframe.attr('src', 'https://www.youtube.com/embed/' + response.items[0].id.videoId);
+                      music_video.append(iframe);
+
+                    })
+
+                //})
+               };
             }
-
           }
         });
-
-
       } else {
 
         var url = 'http://musicbrainz.org/ws/2/release/?query=release:' + search + '&fmt=json';
