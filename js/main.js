@@ -496,7 +496,7 @@ $(document).ready(function () {
 
                   // Nome da banda / artista
 
-                  let nome_artista = $('<div></div>').attr('class', 'nome_artista').html(response.recordings[0]['artist-credit'][0].artist.name +' '+ response.recordings[0].title);
+                  let nome_artista = $('<div></div>').attr('class', 'nome_artista').html(response.recordings[0]['artist-credit'][0].artist.name + ' ' + response.recordings[0].title);
                   filho_musicas.append(nome_artista);
 
                   //Nome do album + nome da musica
@@ -634,51 +634,47 @@ $(document).ready(function () {
                 $.get(v_album, function (response, status) {
 
                   /* Band_artist É ONDE FICA O NOME DO ALBUM EM QUESTAO*/
-                    
-                    let filho_albums = $('<div></div>').attr('class', 'filho_albums');
-                    $('.resultado-pesquisa').append(filho_albums);    
 
-                    
+                  let filho_albums = $('<div></div>').attr('class', 'filho_albums');
+                  $('.resultado-pesquisa').append(filho_albums);
+
+
+                  let albums_outline_track = $('<div></div>').attr('class', 'albums_outline');
+                  filho_albums.append(albums_outline_track);
+
+
 
                   var cover_music = "http://coverartarchive.org/release/" + response.releases[0].id;
                   var cover_music = encodeURI(cover_music);
 
                   console.log(cover_music);
 
+                  let div_img_album = $('<div></div>').attr('class', 'img_album');
+                  albums_outline_track.append(div_img_album);
+
                   $.get(cover_music, function (response, status) {
 
-                            let div_img_album = $('<div></div>').attr('class', 'img_album');
-                            albums_outline_track.append(div_img_album);
+                    let image_album = $('<img></img>').attr('src', response.images[0].thumbnails.small);
+                    div_img_album.append(image_album);
 
-                            let image_album = $('<img></img>').attr('src', response.images[0].thumbnails.small);
-                            div_img_album.append(image_album);
+                  }).fail(function () {
 
-                        }).fail(function () {
-
-                            let div_img_album = $('<div></div>').attr('class', 'img_ablum');
-                            albums_outline_track.append(div_img_album);
-
-                            let image_album = $('<img></img>').attr('src', 'img/nosrc.png');
-                            div_img_album.append(image_album);
+                    let image_album = $('<img></img>').attr('src', 'img/nosrc.png');
+                    div_img_album.append(image_album);
 
 
-                         });
-                    
-                    console.log(response.releases[0].title);
-                    
-                
+                  });
+
+
+                  let nome_band = $('<div></div>').attr('class', 'nome_band').html(response.releases[0].title);
+                  div_img_album.append(nome_band);
+
 
                   /* DIV PRINCIPAL QUE VAI TER DOIS DIVS, ESQUERDA= TRACKS DIREITA = IFRAME DO VIDEO DA MUSICA DO YOUTUBE */
-                  let albums_outline_track = $('<div></div>').attr('class', 'albums_outline');
-                  filho_albums.append(albums_outline_track);
-                    
-                        let nome_band = $('<div></div>').attr('class', 'nome_band').html(response.releases[0].title);
-                        albums_outline_track.append(nome_band);
-                
-                
+
 
                   var musica_album_link = 'http://musicbrainz.org/ws/2/recording/?query=reid :' + response.releases[0].id + '&fmt=json';
-                  var musica_album_link = encodeURI(musica_album_link)
+                  var musica_album_link = encodeURI(musica_album_link);
 
                   console.log(musica_album_link);
 
