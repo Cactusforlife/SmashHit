@@ -123,6 +123,9 @@ $(document).ready(function () {
                   $.get(artist_album, function (response, status) {
 
                     console.log(artist_album);
+                    
+                      
+
 
                     /* *BOSS* */
                     let boss_artista = $('<div></div>').attr('class', 'boss_artista');
@@ -134,17 +137,18 @@ $(document).ready(function () {
 
                     let div_caixa_artist = $('<div></div>').attr('class', 'artist_namebox');
                     boss_artista.append(div_caixa_artist);
+                       
+                    let button_voltar_artista = $('<button></button>').attr('class', 'button_voltar_artista').html('Voltar'+'<br>').click(voltar_artista);
+                    $('.resultado-pesquisa').prepend(button_voltar_artista);
 
                     let label_caixa_artist = $('<label></label>').attr('class', 'artist_namebox_label').html(response.name);
                     div_caixa_artist.append(label_caixa_artist);
 
                     //botão voltar atras
 
-                    let label_voltar_artista = $('<label></label>').attr('class', 'label_voltar_artista').html('Voltar').click(voltar_artista);
-                    div_caixa_artist.append(label_voltar_artista);
-
+                   
                     function voltar_artista() {
-
+                        
                       $('.resultado-pesquisa').hide();
                       $('.resultados').show();
 
@@ -261,10 +265,11 @@ $(document).ready(function () {
 
 
                           function album_description() {
-
+                            /* FUNÇOES DO HIDE E SHOW DAS PAGINAS!!!!!!!!!!!!!!  */
                             filho_albums.empty();
                             filho_albums.show();
                             boss_artista.hide();
+                            $('.button_voltar_artista').hide();  
 
                             var album_link = 'http://musicbrainz.org/ws/2/release-group/?query=rgid:' + response['release-groups'][i].id + '&fmt=json';
                             var album_link = encodeURI(album_link);
@@ -277,8 +282,8 @@ $(document).ready(function () {
                               /* Band_artist É ONDE FICA O NOME DO ALBUM EM QUESTAO*/
                               console.log(response['release-groups'][0]['artist-credit'][0].artist.id);
 
-                              let voltar_artista_album = $('<div></div>').attr('class', 'voltar_artista_album').html('Voltar').click(voltar_artista_album_function);
-                              filho_albums.append(voltar_artista_album);
+                              let voltar_artista_album = $('<button></button>').attr('class', 'voltar_artista_album').html('Voltar').click(voltar_artista_album_function);
+                              $('.resultado-pesquisa').prepend(voltar_artista_album);
 
                               let album_nome = $('<div></div>').attr('class', 'album_nome').html(response['release-groups'][0]['artist-credit'][0].artist.name);
                               filho_albums.append(album_nome);
@@ -288,7 +293,8 @@ $(document).ready(function () {
                               console.log(voltar_artista_album);
 
                               function voltar_artista_album_function() {
-
+                                $('.button_voltar_artista').show();
+                                voltar_artista_album.remove();  
                                 boss_artista.show();
                                 filho_albums.hide();
 
@@ -710,7 +716,7 @@ $(document).ready(function () {
 
 
                             function album_description() {
-
+                              $('.button_voltar_artista').hide();
                               filho_albums.empty();
                               filho_albums.show();
                               boss_artista.hide();
@@ -1204,9 +1210,8 @@ $(document).ready(function () {
                   filho_albums.append(voltar_album_nome);
 
                   function voltar_album_nome_function() {
-
-                    $('.filho_albums').hide();
-                    $('.filho_albums').empty();
+                    
+                    $('.filho_albums').remove();
                     $('.resultado-pesquisa').hide();
                     $('.resultados').show();
 
@@ -1253,11 +1258,9 @@ $(document).ready(function () {
 
 
                       function voltar_album_nome_artista_function() {
-
-                        $('.boss_artista').empty();
-                        $('.boss_artista').hide();
+                        $('.filhos_albums').remove();                                
                         $('.filho_albums').show();
-
+                        $('.boss_artista').remove();  
                       }
 
 
