@@ -136,6 +136,14 @@ body {
     /*! min-height: 500px; */
 }
 
+.filhos_albums {
+    /*! display: grid; */
+    grid-template-areas: 'bnd bnd' 'albm im';
+    grid-gap: 10px;
+    /* text-align: center;*/
+    /*! min-height: 500px; */
+}
+
 .albums_outline {
     
     display: grid;
