@@ -77,18 +77,16 @@ $(document).ready(function () {
 
                 let div_type = $('<div></div>').attr('class', 'type');
                 div_artista.append(div_type);
+                
+                if(artist.type == undefined){
 
-                let label_type = $('<label></label>').attr('for', 'type').html('Type: ' + artist.type);
-                div_type.append(label_type);
 
-
-                //div com o score do artista
-
-                let div_score = $('<div></div>').attr('class', 'score');
-                div_artista.append(div_score);
-
-                let label_score = $('<label></label>').attr('for', 'score').html('Score: ' + artist.score);
-                div_score.append(label_score);
+                }else{
+ 
+                  let label_type = $('<label></label>').attr('for', 'type').html('Type: ' + artist.type);
+                  div_type.append(label_type);
+                  
+                }
 
                 //div com o pais do artista
 
@@ -160,12 +158,12 @@ $(document).ready(function () {
                     if (response.disambiguation == "") {
                       let div_caixa_real_artist = $('<div></div>').attr('class', 'artist_namebox_real');
                       boss_artista.append(div_caixa_real_artist);
-                      let label_caixa_realname = $('<label></label>').attr('class', 'artist_realname_label').html(" ");
+                      let label_caixa_realname = $('<label></label>').attr('class', 'artist_realname_label').html("Disambiguation : Não têm");
                       div_caixa_real_artist.append(label_caixa_realname);
                     } else {
                       let div_caixa_real_artist = $('<div></div>').attr('class', 'artist_namebox_real');
                       boss_artista.append(div_caixa_real_artist);
-                      let label_caixa_realname = $('<label></label>').attr('class', 'artist_realname_label').html(response.disambiguation);
+                      let label_caixa_realname = $('<label></label>').attr('class', 'artist_realname_label').html('Disambiguation: '+ response.disambiguation);
                       div_caixa_real_artist.append(label_caixa_realname);
                     }
                     //Vai buscar a Bio do artista a partir da wikipedia API
@@ -480,21 +478,13 @@ $(document).ready(function () {
               div_song.append(label_song);
 
 
-              //div com o score da music
+              //div com o Album da music
 
-              let div_score = $('<div></div>').attr('class', 'score');
-              div_music.append(div_score);
+              let div_music_album = $('<div></div>').attr('class', 'music_album');
+              div_music.append(div_music_album);
 
-              let label_score = $('<label></label>').attr('for', 'score').html('Score: ' + music.score);
-              div_score.append(label_score);
-
-              //div com o status da musica
-
-              let div_status = $('<div></div>').attr('class', 'status');
-              div_music.append(div_status);
-
-              let label_status = $('<label></label>').attr('for', 'status').html('Status: ' + music.releases[0].status);
-              div_status.append(label_status);
+              let label_music_album = $('<label></label>').attr('for', 'music_album').html('Album: ' + music.releases[0].title);
+              div_music_album.append(label_music_album);
 
               //div com o A banda/artista pertencente da musica
 
@@ -1107,7 +1097,7 @@ $(document).ready(function () {
         });
       } else {
 
-        var url = 'http://musicbrainz.org/ws/2/release/?query=release:' + search + '&fmt=json';
+        var url = 'http://musicbrainz.org/ws/2/release/?query=release:' + search + '&fmt=json'; 
         var url = encodeURI(url);
 
         console.log(url);
@@ -1180,16 +1170,6 @@ $(document).ready(function () {
               let label_track = $('<label></label>').attr('for', 'track').html('Nº Tracks: ' + album.media[0]['track-count']);
 
               div_release.append(label_track);
-
-              //div com o socre do album
-
-              let div_score = $('<div></div>').attr('class', 'score');
-
-              div_release.append(div_score);
-
-              let label_score = $('<label></label>').attr('for', 'score').html('Score: ' + album.score);
-
-              div_score.append(label_score);
 
               /********************************
                *** RESULTADO  DOS ALBUNS  *****
